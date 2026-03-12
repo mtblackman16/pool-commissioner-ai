@@ -123,7 +123,7 @@ CRITICAL RULES:
 - If web search fails or returns unclear data, say so immediately. Do not silently guess.
 - All email drafts are DRAFTS — remind Jacob to review before sending.
 
-CAPABILITIES: Use web search to find scores on espn.com and news. Use Code Interpreter for scenario tables, calculations, and charts. When you need live data, use Code Interpreter to fetch ESPN API endpoints (JSON, no auth required) — see your knowledge file for the full endpoint list. Reference your knowledge file for pool data, analytics, and Jacob's writing style.
+CAPABILITIES: Use web search to find scores on espn.com, ESPN API endpoints, and news. Use Code Interpreter for scenario tables, calculations, charts, and data analysis on pasted standings. Reference your knowledge file for pool data, analytics, ESPN API URLs, and Jacob's writing style.
 
 Before outputting any email, self-check:
 ✅ Opens with "Hi everyone-"?
@@ -173,7 +173,7 @@ Before outputting any email, self-check:
 <!-- ESPN API -->
 <section class="section" id="espn-api">
 <h2>📡 ESPN API Reference</h2>
-<p>These free, no-authentication ESPN endpoints return JSON data. Your Custom GPT can fetch them via <strong>Code Interpreter</strong> — just ask it to pull live data.</p>
+<p>These free, no-authentication ESPN endpoints return JSON data. Your Custom GPT can access them via <strong>Web Search</strong> — just ask it to look up scores or data from these URLs. You can also paste these URLs directly in your browser to see raw JSON.</p>
 
 <h3>Live Scores</h3>
 <div class="ci"><span id="c-api1">https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard</span><button class="copy-btn" data-target="c-api1">Copy</button></div>
@@ -193,8 +193,8 @@ Before outputting any email, self-check:
 <h3>Game Summary (replace {eventId})</h3>
 <div class="ci"><span id="c-api6">https://site.web.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?event={eventId}</span><button class="copy-btn" data-target="c-api6">Copy</button></div>
 
-<h3>Code Interpreter Example</h3>
-<div class="cb"><button class="copy-btn" data-target="c-api-code">Copy</button><pre id="c-api-code" style="margin:0;font:inherit;white-space:pre-wrap">Use Code Interpreter to fetch the latest scores from https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard and parse the JSON to show me today's games, scores, and status.</pre></div>
+<h3>Example Prompt for Live Scores</h3>
+<div class="cb"><button class="copy-btn" data-target="c-api-code">Copy</button><pre id="c-api-code" style="margin:0;font:inherit;white-space:pre-wrap">Search the web for the latest NCAA basketball scores from ESPN. Also check https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard for today's full scoreboard data. Give me a summary of today's games, scores, and status.</pre></div>
 
 <div class="info">
 <strong>Also useful for web search:</strong>
@@ -214,11 +214,11 @@ Before outputting any email, self-check:
 <h2>📊 How the Data Pipeline Works</h2>
 <div class="info">
 <h3>Three Data Channels:</h3>
-<p><strong>Channel 1 — ESPN API via Code Interpreter (automated):</strong> Ask "fetch today's scores from the ESPN API" and the AI writes Python code to pull live JSON data. Works for scores, rankings, team stats, standings.</p>
-<p><strong>Channel 2 — Web Search (semi-automated):</strong> Ask "search for the latest tournament news" and the AI searches ESPN, CBS Sports, etc. Works for injuries, bracketology, expert analysis.</p>
-<p><strong>Channel 3 — Manual Paste (pool-specific):</strong> Copy-paste your ESPN Tournament Challenge group standings into the chat. The AI can't log into ESPN — this is the only way to get pool-specific data.</p>
+<p><strong>Channel 1 — Web Search (primary):</strong> Ask "search for today's NCAA scores on ESPN" and the AI browses ESPN, CBS Sports, and the ESPN API endpoints for live scores, rankings, standings, injuries, and bracketology. This is your main data source.</p>
+<p><strong>Channel 2 — Manual Paste (pool-specific):</strong> Copy-paste your ESPN Tournament Challenge group standings into the chat. The AI can't log into ESPN — this is the only way to get your specific pool's standings and bracket picks.</p>
+<p><strong>Channel 3 — Code Interpreter (computation):</strong> Once data is in the chat (via web search or paste), Code Interpreter crunches the numbers — scenario tables, probability calculations, charts, standings analysis.</p>
 <h3>Combined Power:</h3>
-<p>In one conversation: "Fetch today's scores" + "Search for injury news" + [paste standings] → "Write the recap email combining all of this." The AI synthesizes all three sources into one email in your voice.</p>
+<p>In one conversation: "Search ESPN for today's scores" + "Search for injury news" + [paste pool standings] → "Write the recap email combining all of this." The AI synthesizes all sources into one email in your voice.</p>
 </div>
 </section>
 
@@ -230,13 +230,13 @@ Before outputting any email, self-check:
 <div class="cb"><button class="copy-btn" data-target="c-p1">Copy</button><pre id="c-p1" style="margin:0;font:inherit;white-space:pre-wrap">Selection Sunday is March 15. Search the web for the latest NCAA tournament projections, conference tournament results, and any major injury news. Give me a pre-Selection Sunday briefing: top contenders, undervalued teams, upset risks, and what I should watch for when the bracket drops Sunday evening. Include efficiency context and historical seed performance rates.</pre></div>
 
 <h3>Build My Bracket</h3>
-<div class="cb"><button class="copy-btn" data-target="c-p2">Copy</button><pre id="c-p2" style="margin:0;font:inherit;white-space:pre-wrap">The 2026 NCAA Tournament bracket is set. Search the web for the complete bracket. Then build me a recommended bracket with: predicted winners for each Round 1 game with confidence levels, my Final Four picks with reasoning based on efficiency metrics and matchup analysis, and my champion pick. Remember this is a 25-person family pool — optimize for accuracy, not wild contrarian swings.</pre></div>
+<div class="cb"><button class="copy-btn" data-target="c-p2">Copy</button><pre id="c-p2" style="margin:0;font:inherit;white-space:pre-wrap">The 2026 NCAA Tournament bracket is set. Search the web for the complete bracket. Then build me a recommended bracket with: predicted winners for each Round 1 game with confidence levels, my Final Four picks with reasoning based on efficiency metrics and matchup analysis, and my champion pick. Remember this is a 26-person family pool — optimize for accuracy, not wild contrarian swings.</pre></div>
 
 <h3>Tournament Recap Email</h3>
 <div class="cb"><button class="copy-btn" data-target="c-p3">Copy</button><pre id="c-p3" style="margin:0;font:inherit;white-space:pre-wrap">Here are the current pool standings [PASTE YOUR STANDINGS HERE]. Write a tournament recap email in my voice covering the latest round of games. Mention every participant by name, focus on how the game results affect pool standings, include how many brackets still have their champion alive, and build a scenario table showing who wins the pool under each remaining outcome. Sign it -Jacob.</pre></div>
 
-<h3>Live Score Check (ESPN API)</h3>
-<div class="cb"><button class="copy-btn" data-target="c-p4">Copy</button><pre id="c-p4" style="margin:0;font:inherit;white-space:pre-wrap">Use Code Interpreter to fetch the latest scores from https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard and give me a quick update on today's games and what to watch for in our pool.</pre></div>
+<h3>Live Score Check</h3>
+<div class="cb"><button class="copy-btn" data-target="c-p4">Copy</button><pre id="c-p4" style="margin:0;font:inherit;white-space:pre-wrap">Search the web for today's NCAA tournament scores on ESPN. Check https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard for the full scoreboard. Give me a quick update on today's games and what to watch for in our pool.</pre></div>
 
 <h3>Scenario Analysis</h3>
 <div class="cb"><button class="copy-btn" data-target="c-p5">Copy</button><pre id="c-p5" style="margin:0;font:inherit;white-space:pre-wrap">Here are the remaining teams in the tournament: [LIST TEAMS]. Here are our current pool standings: [PASTE STANDINGS]. Run a complete scenario analysis showing who wins our pool under each possible outcome. Include probability estimates and highlight the key games that determine the pool winner.</pre></div>
@@ -351,11 +351,10 @@ Before outputting any email, self-check:
 <tr><td>Before March 15</td><td>Hype / bracket tips</td><td>Pre-Selection Sunday Briefing</td></tr>
 <tr><td>March 15 evening</td><td>Bracket analysis</td><td>Build My Bracket</td></tr>
 <tr><td>March 18</td><td>Submission reminder</td><td>Bracket Submission Reminder</td></tr>
-<tr><td>March 20 (Fri)</td><td>Round of 64 Day 1</td><td>Tournament Recap Email</td></tr>
-<tr><td>March 21 (Sat)</td><td>Round of 64 Day 2</td><td>Tournament Recap Email</td></tr>
-<tr><td>March 22 (Sun)</td><td>Round of 32</td><td>Recap + Scenarios</td></tr>
-<tr><td>March 27 (Fri)</td><td>Sweet 16</td><td>Recap + Scenarios</td></tr>
-<tr><td>March 29 (Sun)</td><td>Elite 8</td><td>Scenario Analysis</td></tr>
+<tr><td>March 19 (Thu)</td><td>Round of 64 Day 1</td><td>Tournament Recap Email</td></tr>
+<tr><td>March 20 (Fri)</td><td>Round of 64 Day 2</td><td>Tournament Recap Email</td></tr>
+<tr><td>March 21-22 (Sat-Sun)</td><td>Round of 32</td><td>Recap + Scenarios</td></tr>
+<tr><td>March 27-28 (Fri-Sat)</td><td>Sweet 16 / Elite 8</td><td>Recap + Scenarios</td></tr>
 <tr><td>April 4 (Sat)</td><td>Final Four</td><td>Scenario Analysis</td></tr>
 <tr><td>April 6 (Mon)</td><td>Championship wrap-up</td><td>Final Wrap-Up Email</td></tr>
 </tbody>
@@ -367,7 +366,7 @@ Before outputting any email, self-check:
 <h2>🎤 Phase 2: Wispr Flow ($15/mo)</h2>
 <p>Once you're rolling with ChatGPT, add AI voice dictation:</p>
 <ul>
-<li><a href="https://wisprflow.com" target="_blank"><strong>wisprflow.com</strong></a> — works in ANY app (Mac / Windows / iPhone / Android)</li>
+<li><a href="https://wisprflow.ai" target="_blank"><strong>wisprflow.com</strong></a> — works in ANY app (Mac / Windows / iPhone / Android)</li>
 <li>Dictate pool updates while walking Dylan around the house</li>
 <li>Speak naturally — Wispr converts to text in real time</li>
 <li>Works in the ChatGPT browser tab, Gmail, Notes, anywhere</li>
@@ -455,4 +454,3 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a) {
 </script>
 </body>
 </html>
-<!-- v2 -->

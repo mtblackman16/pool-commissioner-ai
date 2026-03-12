@@ -27,7 +27,7 @@ CRITICAL RULES:
 - If web search fails or returns unclear data, say so immediately. Do not silently guess.
 - All email drafts are DRAFTS — remind Jacob to review before sending.
 
-CAPABILITIES: Use web search to find scores on espn.com and news. Use Code Interpreter for scenario tables, calculations, and charts. When you need live data, use Code Interpreter to fetch ESPN API endpoints (JSON, no auth required) — see your knowledge file for the full endpoint list. Reference your knowledge file for pool data, analytics, and Jacob's writing style.
+CAPABILITIES: Use web search to find scores on espn.com, ESPN API endpoints, and news. Use Code Interpreter for scenario tables, calculations, charts, and data analysis on pasted standings. Reference your knowledge file for pool data, analytics, ESPN API URLs, and Jacob's writing style.
 
 Before outputting any email, self-check:
 ✅ Opens with "Hi everyone-"?
@@ -146,7 +146,6 @@ Before outputting any email, self-check:
 **What this AI CANNOT do (requires your help):**
 - ❌ Access ESPN Tournament Challenge group standings (requires ESPN login)
 - ❌ See individual participants' bracket picks (requires ESPN login)
-- ❌ Make direct API calls to ESPN data endpoints
 
 **The workflow:** When you need pool-specific analysis (standings, who's winning, scenario tables), go to your ESPN Tournament Challenge group page, copy the standings, and paste them into this chat. The AI handles all the analysis and email writing — you just provide the raw data.
 
@@ -194,9 +193,9 @@ Free alternative to KenPom with similar efficiency ratings and tournament simula
 | 7 vs 10 | ~61% | Slight edge to 7-seeds |
 | 8 vs 9 | ~52% | True coin flip — don't overthink these |
 
-**Key heuristic:** Pick at least one 12-over-5 upset (35% per game × 4 games = ~88% chance at least one happens). The 5-12 and 6-11 lines are where bracket value lives.
+**Key heuristic:** Pick at least one 12-over-5 upset (35% per game × 4 games = ~82% chance at least one happens). The 5-12 and 6-11 lines are where bracket value lives.
 
-**11-Seed Special Note:** Since the First Four expansion (2011), some 11-seeds are play-in winners who built momentum. These teams have produced remarkable runs: VCU 2011 (Final Four), Loyola Chicago 2018 (Final Four), UCLA 2021 (Final Four).
+**11-Seed Special Note:** Since the First Four expansion (2011), 11-seeds have produced remarkable runs: VCU 2011 (Final Four, via First Four), Loyola Chicago 2018 (Final Four), UCLA 2021 (Final Four, via First Four). Some 11-seeds enter through the First Four play-in with extra game experience and momentum.
 
 ### Tempo, Pace, and Upset Predictors
 
@@ -211,9 +210,9 @@ Free alternative to KenPom with similar efficiency ratings and tournament simula
 - High "Luck" rating on KenPom (regression candidate)
 - Poor free-throw shooting (<68%) — these teams lose close games
 
-### Pool Game Theory (for a 25-person family pool)
+### Pool Game Theory (for a 26-person family pool)
 
-**Important context:** Contrarian strategy matters MUCH LESS in a 25-person pool than in a massive public pool. In a 25,000-person ESPN pool, you MUST differentiate to win. In a 25-person family pool, your exact bracket combination is likely unique even with chalk picks.
+**Important context:** Contrarian strategy matters MUCH LESS in a 26-person pool than in a massive public pool. In a 25,000-person ESPN pool, you MUST differentiate to win. In a 26-person family pool, your exact bracket combination is likely unique even with chalk picks.
 
 **Best strategy for this pool size:**
 - **Pick the teams you genuinely think will win** — accuracy beats differentiation in small pools
@@ -225,7 +224,7 @@ Free alternative to KenPom with similar efficiency ratings and tournament simula
 **When to be contrarian:** Only when you genuinely believe the field is wrong AND the analytical evidence supports your pick. "Nobody else will pick this team" is not a reason by itself.
 
 ### ESPN API Endpoints (Free, No Authentication Required)
-Use Code Interpreter to fetch these endpoints directly — they return JSON data:
+These endpoints return JSON data. Web search can access them, and you can paste these URLs in your browser to see raw data:
 
 **Base URL:** `https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/`
 
@@ -239,12 +238,8 @@ Use Code Interpreter to fetch these endpoints directly — they return JSON data
 | Conference Standings | `.../standings` |
 | Game Summary | `https://site.web.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?event={eventId}` |
 
-**Example Code Interpreter usage:**
-```python
-import urllib.request, json
-url = "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard"
-data = json.loads(urllib.request.urlopen(url).read())
-```
+**Example prompt:**
+"Search the web for today's NCAA scores. Also check https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard for the full scoreboard data."
 
 **Note:** ESPN Tournament Challenge GROUP standings require a logged-in ESPN account. The API endpoints above cover general scores, rankings, and team data — but for the Nitzberg family pool's specific standings and bracket picks, Jacob will need to copy-paste that data from ESPN.
 
@@ -265,36 +260,34 @@ data = json.loads(urllib.request.urlopen(url).read())
 
 Pool Commissioner AI connects to real-time sports data through multiple channels:
 
-### Channel 1: ESPN API via Code Interpreter (Automated)
-Ask the AI: "Use Code Interpreter to fetch today's scores from the ESPN API"
-The AI will write and execute Python code that hits the ESPN API endpoints, parses the JSON response, and presents the data in a readable format. This works for:
+### Channel 1: Web Search (Primary — Live Data)
+Ask the AI: "Search ESPN for today's NCAA tournament scores"
+The AI uses web search to browse ESPN, CBS Sports, the ESPN API endpoints, and other sources for:
 - Live game scores and status
 - Current rankings (AP/Coaches poll)
 - Team statistics and records
-- Conference standings
-- Individual game box scores and summaries
-
-### Channel 2: Web Search (Semi-Automated)
-Ask the AI: "Search the web for the latest tournament news"
-The AI will search ESPN, CBS Sports, and other sites for:
-- Injury reports and updates
-- Bracketology projections
-- Expert analysis and predictions
+- Injury reports, bracketology, expert analysis
 - Breaking news
 
-### Channel 3: Manual Paste (Pool-Specific Data)
+### Channel 2: Manual Paste (Pool-Specific Data)
 Copy-paste from ESPN Tournament Challenge for:
 - Pool group standings (requires ESPN login)
 - Individual participant brackets
 - Pick distributions across the pool
 
+### Channel 3: Code Interpreter (Computation)
+Once data is in the chat (via web search or manual paste), Code Interpreter crunches the numbers:
+- Scenario tables (all possible outcomes)
+- Probability calculations
+- Charts and visualizations
+- Standings analysis and projections
+
 ### The Combined Power
 In a single conversation, you can:
-1. "Fetch today's scores from the ESPN API" → AI gets live data
-2. "Search the web for any injury news" → AI finds breaking news
-3. [Paste your pool standings] → "Now write the recap email combining all of this"
+1. "Search ESPN for today's scores and injury news" → AI gets live data via web search
+2. [Paste your pool standings] → "Now write the recap email combining all of this"
 
-The AI synthesizes all three data sources into one cohesive email in your voice.
+The AI synthesizes all data sources into one cohesive email in your voice.
 
 ---
 
@@ -347,7 +340,7 @@ Final wrap-up:
 ### 3. Bracket Builder
 **You provide:** The 68-team tournament field (paste from ESPN or just say "the bracket is set")
 **AI produces:** Round-by-round pick recommendations with reasoning based on efficiency metrics, seed history, matchup analysis, and pool strategy
-**Sample prompt:** "The bracket was just announced. Help me build my picks. Focus on accuracy over flash — this is a 25-person pool so I don't need to be wildly contrarian."
+**Sample prompt:** "The bracket was just announced. Help me build my picks. Focus on accuracy over flash — this is a 26-person pool so I don't need to be wildly contrarian."
 
 ### 4. Quick Status Update
 **You provide:** Nothing (AI searches the web) or paste latest data
@@ -434,11 +427,10 @@ Three options, from simplest to most automated:
 | Before Selection Sunday | Hype email / bracket building tips | Pre-Selection Sunday Briefing |
 | March 15 evening | Bracket analysis after field announced | Build My Bracket |
 | March 18 | Bracket submission reminder | Bracket Submission Reminder |
-| March 20 (Fri evening) | Round of 64 Day 1 recap | Tournament Recap Email |
-| March 21 (Sat evening) | Round of 64 Day 2 recap | Tournament Recap Email |
-| March 22 (Sun evening) | Round of 32 recap | Tournament Recap Email |
-| March 27 (Fri) | Sweet 16 recap | Tournament Recap Email + Scenario Analysis |
-| March 29 (Sun) | Elite 8 recap + scenarios | Scenario Analysis (full enumeration) |
+| March 19 (Thu evening) | Round of 64 Day 1 recap | Tournament Recap Email |
+| March 20 (Fri evening) | Round of 64 Day 2 recap | Tournament Recap Email |
+| March 21-22 (Sat-Sun) | Round of 32 recap | Tournament Recap Email |
+| March 27-28 (Fri-Sat) | Sweet 16 / Elite 8 | Recap + Scenario Analysis |
 | April 4 (Sat) | Final Four recap | Scenario Analysis (3 games left) |
 | April 6 (Mon) | Championship + Final Standings | Final wrap-up email |
 
