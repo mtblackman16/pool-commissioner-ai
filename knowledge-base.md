@@ -27,7 +27,7 @@ CRITICAL RULES:
 - If web search fails or returns unclear data, say so immediately. Do not silently guess.
 - All email drafts are DRAFTS — remind Jacob to review before sending.
 
-CAPABILITIES: Use web search to find scores on espn.com and news. Use Code Interpreter for scenario tables, calculations, and charts. Reference your knowledge file for pool data, analytics, and Jacob's writing style.
+CAPABILITIES: Use web search to find scores on espn.com and news. Use Code Interpreter for scenario tables, calculations, and charts. When you need live data, use Code Interpreter to fetch ESPN API endpoints (JSON, no auth required) — see your knowledge file for the full endpoint list. Reference your knowledge file for pool data, analytics, and Jacob's writing style.
 
 Before outputting any email, self-check:
 ✅ Opens with "Hi everyone-"?
@@ -224,12 +224,77 @@ Free alternative to KenPom with similar efficiency ratings and tournament simula
 
 **When to be contrarian:** Only when you genuinely believe the field is wrong AND the analytical evidence supports your pick. "Nobody else will pick this team" is not a reason by itself.
 
-### Data Sources for Your Research
-- **espn.com/mens-college-basketball/** — Scores, standings, BPI, bracketology
-- **ncaa.com/march-madness-live/bracket** — Official bracket (canonical source)
-- **barttorvik.com** — Free efficiency ratings and tournament simulations (check manually if web search can't reach it)
+### ESPN API Endpoints (Free, No Authentication Required)
+Use Code Interpreter to fetch these endpoints directly — they return JSON data:
+
+**Base URL:** `https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/`
+
+| Endpoint | URL |
+|----------|-----|
+| Live Scores | `.../scoreboard` |
+| Scores by Date | `.../scoreboard?dates=YYYYMMDD` |
+| Rankings (AP/Coaches) | `.../rankings` |
+| All Teams | `.../teams` |
+| Specific Team | `.../teams/{teamId}` |
+| Conference Standings | `.../standings` |
+| Game Summary | `https://site.web.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?event={eventId}` |
+
+**Example Code Interpreter usage:**
+```python
+import urllib.request, json
+url = "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard"
+data = json.loads(urllib.request.urlopen(url).read())
+```
+
+**Note:** ESPN Tournament Challenge GROUP standings require a logged-in ESPN account. The API endpoints above cover general scores, rankings, and team data — but for the Nitzberg family pool's specific standings and bracket picks, Jacob will need to copy-paste that data from ESPN.
+
+### Human-Readable ESPN Pages (for Web Search)
+- espn.com/mens-college-basketball/scoreboard — rendered scores page
+- espn.com/mens-college-basketball/rankings — AP/Coaches poll
+- espn.com/mens-college-basketball/bracketology — Joe Lunardi's projections
+
+### Other Data Sources
+- **barttorvik.com** — Free efficiency ratings and tournament simulations (may need manual access if Cloudflare-blocked)
+- **ncaa.com/march-madness-live/bracket** — Official NCAA bracket (canonical source)
 - **warrennolan.com/basketball** — NET rankings, Quad records, team sheets
 - **sports-reference.com/cbb/** — Comprehensive historical stats
+
+---
+
+## LIVE DATA PIPELINE
+
+Pool Commissioner AI connects to real-time sports data through multiple channels:
+
+### Channel 1: ESPN API via Code Interpreter (Automated)
+Ask the AI: "Use Code Interpreter to fetch today's scores from the ESPN API"
+The AI will write and execute Python code that hits the ESPN API endpoints, parses the JSON response, and presents the data in a readable format. This works for:
+- Live game scores and status
+- Current rankings (AP/Coaches poll)
+- Team statistics and records
+- Conference standings
+- Individual game box scores and summaries
+
+### Channel 2: Web Search (Semi-Automated)
+Ask the AI: "Search the web for the latest tournament news"
+The AI will search ESPN, CBS Sports, and other sites for:
+- Injury reports and updates
+- Bracketology projections
+- Expert analysis and predictions
+- Breaking news
+
+### Channel 3: Manual Paste (Pool-Specific Data)
+Copy-paste from ESPN Tournament Challenge for:
+- Pool group standings (requires ESPN login)
+- Individual participant brackets
+- Pick distributions across the pool
+
+### The Combined Power
+In a single conversation, you can:
+1. "Fetch today's scores from the ESPN API" → AI gets live data
+2. "Search the web for any injury news" → AI finds breaking news
+3. [Paste your pool standings] → "Now write the recap email combining all of this"
+
+The AI synthesizes all three data sources into one cohesive email in your voice.
 
 ---
 
@@ -312,6 +377,89 @@ Final wrap-up:
 **If uncertain about a participant's name or standing:** Cross-reference the 26-person list above. If still unsure, ASK rather than guess.
 
 **Year-over-year:** ⚠️ Before each new tournament season, update participant list, dates, and clear prior-year data from this file.
+
+---
+
+## COMPLETE EMAIL WORKFLOW — END TO END
+
+### The Full Pipeline: AI → Email → Family
+
+**Step 1: Gather Data**
+- Open ESPN Tournament Challenge → your group page
+- Copy the standings table
+- Note any big upsets or storylines from the day's games
+
+**Step 2: Generate Content in Pool Commissioner AI**
+- Paste standings into the chat
+- Ask for a recap email (use Template 1 above)
+- Review the draft — check names, check data, make personal tweaks
+- Ask for a scenario table if you're in later rounds
+
+**Step 3: Distribute to the Family**
+Three options, from simplest to most automated:
+
+**Option A: Manual (fastest for occasional use)**
+1. Copy the AI-generated email
+2. Open Gmail → Compose
+3. BCC the participant email list (copy from setup guide page)
+4. Paste the email body
+5. Send
+
+**Option B: Gmail + BCC Template**
+1. Create a Gmail contact group called "Nitzberg Pool" with all participant emails
+2. When ready to send: Compose → BCC "Nitzberg Pool" → paste AI email → send
+3. Saves re-entering emails each time
+
+**Option C: Zapier Automation (set up once, use forever)**
+1. Create a free Zapier account at zapier.com
+2. Create a Zap:
+   - **Trigger:** "Email by Zapier" (gives you a special Zapier email address)
+   - **Action:** "Gmail - Send Email"
+   - **To/BCC:** All participant emails (comma-separated)
+   - **Subject:** Use the trigger email's subject
+   - **Body:** Use the trigger email's body
+3. Now your workflow is: Generate recap in AI → Copy → Send to your Zapier trigger email → Zapier distributes to everyone
+4. **Advanced:** Add a second action to log each email to a Google Sheet for record-keeping
+
+**Option D: Zapier + Scheduled Reminders**
+1. Same Zapier setup as Option C
+2. Add a separate Zap with trigger "Schedule by Zapier"
+3. Set it to fire after each tournament round (e.g., Friday after Round 1, Sunday after Round 2)
+4. Action: Send you a reminder email "Time to generate the pool recap!"
+5. This ensures you never forget to send updates even during the craziest tournament days
+
+### Tournament Communication Calendar
+| When | What to Send | Prompt to Use |
+|------|-------------|---------------|
+| Before Selection Sunday | Hype email / bracket building tips | Pre-Selection Sunday Briefing |
+| March 15 evening | Bracket analysis after field announced | Build My Bracket |
+| March 18 | Bracket submission reminder | Bracket Submission Reminder |
+| March 20 (Fri evening) | Round of 64 Day 1 recap | Tournament Recap Email |
+| March 21 (Sat evening) | Round of 64 Day 2 recap | Tournament Recap Email |
+| March 22 (Sun evening) | Round of 32 recap | Tournament Recap Email |
+| March 27 (Fri) | Sweet 16 recap | Tournament Recap Email + Scenario Analysis |
+| March 29 (Sun) | Elite 8 recap + scenarios | Scenario Analysis (full enumeration) |
+| April 4 (Sat) | Final Four recap | Scenario Analysis (3 games left) |
+| April 6 (Mon) | Championship + Final Standings | Final wrap-up email |
+
+### Email Best Practices
+- Send recaps within a few hours of games ending (while excitement is fresh)
+- Always BCC (not TO) to avoid reply-all chaos
+- Include the ESPN group standings link in every email
+- Use your AI-generated scenario tables — they're what make your emails special
+- Personal touches matter: add a 1-2 sentence P.S. about something only you noticed
+
+---
+
+## WHAT'S NEXT — THE BIGGER PICTURE
+
+Once you've used Pool Commissioner AI for the tournament, consider:
+
+- **Publish your Custom GPT** — share it with other bracket pool commissioners via the ChatGPT GPT Store
+- **Start a sports analytics newsletter** — your ESPN credentials + AI-assisted content = unique voice
+- **Content calendar:** One 30-min voice-dictated session per week during basketball season
+- **The core insight:** You combine data analysis, community management, and warm storytelling in a way most content creators can only dream of. You do it for 25 people. There's a world where it's 25,000.
+- **ESPN + AI fluency** = a consulting and content package that very few people in the world can offer
 
 ---
 

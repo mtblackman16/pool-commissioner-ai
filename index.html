@@ -1,351 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pool Commissioner AI - Setup Guide</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: #f8f9fa;
-        }
-
-        .header {
-            background: #1a1a2e;
-            color: white;
-            text-align: center;
-            padding: 3rem 1rem;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-        }
-
-        .header h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-
-        .content {
-            padding: 2rem 0;
-        }
-
-        .section {
-            background: white;
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            border-left: 4px solid #4a90d9;
-        }
-
-        .section h2 {
-            color: #1a1a2e;
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            border-bottom: 2px solid #4a90d9;
-            padding-bottom: 0.5rem;
-        }
-
-        .section h3 {
-            color: #1a1a2e;
-            font-size: 1.3rem;
-            margin: 1.5rem 0 0.5rem;
-        }
-
-        .copyable-block {
-            position: relative;
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin: 1rem 0;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 0.9rem;
-            line-height: 1.4;
-            white-space: pre-wrap;
-            overflow-x: auto;
-        }
-
-        .copyable-inline {
-            position: relative;
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 6px;
-            padding: 0.8rem;
-            margin: 0.5rem 0;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 0.9rem;
-        }
-
-        .copy-btn {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            background: #4a90d9;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            padding: 0.5rem 0.8rem;
-            font-size: 0.8rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-            transition: background 0.2s;
-            font-weight: 500;
-        }
-
-        .copy-btn:hover {
-            background: #357abd;
-        }
-
-        .copy-btn.copied {
-            background: #28a745;
-        }
-
-        .copy-icon {
-            width: 16px;
-            height: 16px;
-        }
-
-        .btn-primary {
-            background: #4a90d9;
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            transition: background 0.2s;
-            margin: 0.5rem 0;
-        }
-
-        .btn-primary:hover {
-            background: #357abd;
-            text-decoration: none;
-        }
-
-        .info-card {
-            background: #e7f3ff;
-            border: 1px solid #4a90d9;
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin: 1rem 0;
-        }
-
-        .info-card h4 {
-            color: #1a1a2e;
-            margin-bottom: 0.5rem;
-        }
-
-        .checklist {
-            list-style: none;
-            padding: 0;
-        }
-
-        .checklist li {
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #eee;
-            position: relative;
-            padding-left: 2rem;
-        }
-
-        .checklist li:before {
-            content: "✅";
-            position: absolute;
-            left: 0;
-            top: 0.5rem;
-        }
-
-        .checklist li.off:before {
-            content: "❌";
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1rem 0;
-            background: white;
-        }
-
-        th, td {
-            text-align: left;
-            padding: 0.8rem;
-            border-bottom: 1px solid #dee2e6;
-        }
-
-        th {
-            background: #f8f9fa;
-            font-weight: 600;
-            color: #1a1a2e;
-        }
-
-        .footer {
-            background: #1a1a2e;
-            color: white;
-            text-align: center;
-            padding: 2rem;
-            margin-top: 3rem;
-        }
-
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2.2rem;
-            }
-            
-            .section {
-                padding: 1.5rem;
-                margin-bottom: 1.5rem;
-            }
-            
-            .copyable-block {
-                padding: 1rem;
-                font-size: 0.8rem;
-            }
-            
-            .copy-btn {
-                top: 6px;
-                right: 6px;
-                padding: 0.4rem 0.6rem;
-                font-size: 0.7rem;
-            }
-        }
-
-        @media print {
-            .copy-btn {
-                display: none;
-            }
-            
-            .section {
-                box-shadow: none;
-                border: 1px solid #ccc;
-                break-inside: avoid;
-            }
-            
-            .header {
-                background: #1a1a2e !important;
-                -webkit-print-color-adjust: exact;
-                color-adjust: exact;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pool Commissioner AI — Setup Guide</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;color:#333;background:#f8f9fa}
+.header{background:linear-gradient(135deg,#1a1a2e,#16213e);color:#fff;text-align:center;padding:3rem 1rem}
+.header h1{font-size:2.8rem;margin-bottom:.5rem}
+.header p{font-size:1.1rem;opacity:.9;max-width:600px;margin:.3rem auto}
+.container{max-width:960px;margin:0 auto;padding:0 1rem}
+.content{padding:2rem 0}
+.section{background:#fff;border-radius:12px;padding:2rem;margin-bottom:1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.08);border-left:4px solid #4a90d9}
+.section h2{color:#1a1a2e;font-size:1.6rem;margin-bottom:.8rem;padding-bottom:.4rem;border-bottom:2px solid #4a90d9}
+.section h3{color:#1a1a2e;font-size:1.15rem;margin:1.2rem 0 .4rem}
+.cb{position:relative;background:#f1f3f5;border:1px solid #dee2e6;border-radius:8px;padding:1rem 3.5rem 1rem 1rem;margin:.8rem 0;font-family:Monaco,Menlo,monospace;font-size:.85rem;white-space:pre-wrap;word-break:break-all;line-height:1.5}
+.ci{position:relative;display:flex;align-items:center;background:#f1f3f5;border:1px solid #dee2e6;border-radius:6px;padding:.6rem 3.5rem .6rem .8rem;margin:.5rem 0;font-family:Monaco,Menlo,monospace;font-size:.9rem}
+.copy-btn{position:absolute;top:6px;right:6px;background:#4a90d9;color:#fff;border:none;border-radius:6px;padding:6px 12px;font-size:.78rem;cursor:pointer;font-weight:600;transition:background .2s}
+.copy-btn:hover{background:#357abd}
+.copy-btn.copied{background:#28a745}
+.btn-dl{display:inline-block;background:#4a90d9;color:#fff;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:600;font-size:1rem;margin:.5rem 0}
+.btn-dl:hover{background:#357abd}
+.info{background:#e7f3ff;border:1px solid #4a90d9;border-radius:8px;padding:1.2rem;margin:1rem 0}
+.warn{background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:1.2rem;margin:1rem 0}
+.checklist{list-style:none;padding:0}
+.checklist li{padding:.4rem 0;padding-left:1.8rem;position:relative}
+.checklist li::before{content:"✅";position:absolute;left:0}
+.checklist li.off::before{content:"❌"}
+table{width:100%;border-collapse:collapse;margin:.8rem 0}
+th,td{text-align:left;padding:.6rem;border-bottom:1px solid #dee2e6;font-size:.9rem}
+th{background:#f1f3f5;font-weight:600;color:#1a1a2e}
+ol li,ul li{margin:.3rem 0}
+.footer{background:#1a1a2e;color:#fff;text-align:center;padding:1.5rem;margin-top:2rem}
+.toc{background:#fff;border-radius:12px;padding:1.5rem 2rem;margin-bottom:1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.toc h2{color:#1a1a2e;font-size:1.3rem;margin-bottom:.8rem}
+.toc ol{padding-left:1.5rem}
+.toc li{margin:.3rem 0}
+.toc a{color:#4a90d9;text-decoration:none;font-weight:500}
+.toc a:hover{text-decoration:underline}
+@media(max-width:768px){.header h1{font-size:2rem}.section{padding:1.2rem}.cb{font-size:.78rem;padding-right:1rem}.copy-btn{position:static;display:block;margin-top:.5rem;width:100%}}
+@media print{.copy-btn,.btn-dl{display:none}.section{box-shadow:none;border:1px solid #ccc;break-inside:avoid}}
+</style>
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <h1>🏀 Pool Commissioner AI</h1>
-            <p>Your AI-powered NCAA bracket pool management assistant</p>
-            <p><strong>Built for the Nitzberg Family Tournament Pool 2026</strong></p>
-        </div>
-    </header>
+<header class="header">
+<div class="container">
+<h1>🏀 Pool Commissioner AI</h1>
+<p>Your AI-powered NCAA bracket pool management assistant</p>
+<p><strong>Built for the Nitzberg Family Tournament Pool 2026</strong></p>
+</div>
+</header>
+<main class="container content">
 
-    <main class="container content">
-        <!-- Step 1: Get ChatGPT Plus -->
-        <section class="section">
-            <h2>Step 1: Get ChatGPT Plus</h2>
-            <p>You need ChatGPT Plus ($20/mo) to create custom GPTs. The regular free account won't work, and neither will the Go tier.</p>
-            <ul>
-                <li><strong>New to ChatGPT:</strong> Go to <a href="https://chatgpt.com" target="_blank" class="btn-primary">chatgpt.com</a> and sign up with your personal email</li>
-                <li><strong>Have free account:</strong> Settings → Subscription → Upgrade to Plus</li>
-            </ul>
-            <p><em>Note: Use your personal email, not work email, for the best experience.</em></p>
-        </section>
+<nav class="toc">
+<h2>What You're Setting Up</h2>
+<ol>
+<li><a href="#step1">Get ChatGPT Plus</a></li>
+<li><a href="#step2">Create a Custom GPT</a></li>
+<li><a href="#step3">Paste the System Prompt</a></li>
+<li><a href="#step4">Upload the Knowledge Base</a></li>
+<li><a href="#step5">Configure Capabilities</a></li>
+<li><a href="#step6">Add Conversation Starters</a></li>
+<li><a href="#step7">Save &amp; Test</a></li>
+<li><a href="#espn-api">Connect to Live ESPN Data (API Reference)</a></li>
+<li><a href="#data-flow">How the Data Pipeline Works</a></li>
+<li><a href="#prompts">Ready-to-Use Prompts</a></li>
+<li><a href="#emails">Participant Email Directory</a></li>
+<li><a href="#zapier">Zapier Email Automation</a></li>
+<li><a href="#email-workflow">Complete Email Workflow</a></li>
+<li><a href="#wispr">Phase 2: Wispr Flow</a></li>
+<li><a href="#future">What's Next — The Bigger Picture</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+</ol>
+</nav>
 
-        <!-- Step 2: Create Custom GPT -->
-        <section class="section">
-            <h2>Step 2: Create Your Custom GPT</h2>
-            <ol>
-                <li>In ChatGPT sidebar → <strong>Explore GPTs</strong> → <strong>Create</strong> (top right)</li>
-                <li><strong>IMPORTANT:</strong> Click the <strong>"Configure"</strong> tab (not the Create tab)</li>
-                <li>Enter these details:</li>
-            </ol>
-            
-            <h3>Name</h3>
-            <div class="copyable-inline">
-                <button class="copy-btn" onclick="copyToClipboard(this, 'Pool Commissioner AI')">
-                    <svg class="copy-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                    </svg>
-                    Copy
-                </button>
-                Pool Commissioner AI
-            </div>
+<!-- STEP 1 -->
+<section class="section" id="step1">
+<h2>Step 1: Get ChatGPT Plus ($20/mo)</h2>
+<p>You need <strong>ChatGPT Plus</strong> to create Custom GPTs. The free tier and the cheaper "Go" tier won't work.</p>
+<ul>
+<li><strong>New to ChatGPT:</strong> Go to <a href="https://chatgpt.com" target="_blank">chatgpt.com</a> → sign up with your <strong>personal email</strong> → subscribe to Plus</li>
+<li><strong>Already have a free account:</strong> Settings → Subscription → Upgrade to Plus</li>
+</ul>
+<div class="warn">⚠️ You need <strong>Plus</strong> specifically — not the Go tier. Only Plus unlocks Custom GPT creation.</div>
+</section>
 
-            <h3>Description</h3>
-            <div class="copyable-inline">
-                <button class="copy-btn" onclick="copyToClipboard(this, 'NCAA bracket pool management for the Nitzberg Family Tournament Pool')">
-                    <svg class="copy-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                    </svg>
-                    Copy
-                </button>
-                NCAA bracket pool management for the Nitzberg Family Tournament Pool
-            </div>
-        </section>
+<!-- STEP 2 -->
+<section class="section" id="step2">
+<h2>Step 2: Create Your Custom GPT</h2>
+<ol>
+<li>In the ChatGPT sidebar → <strong>Explore GPTs</strong> → <strong>Create</strong> (top right)</li>
+<li>⚠️ Click the <strong>"Configure"</strong> tab at the top (NOT the "Create" tab — Configure has the manual fields)</li>
+<li>Fill in the fields below:</li>
+</ol>
+<h3>Name</h3>
+<div class="ci"><span id="c-name">Pool Commissioner AI</span><button class="copy-btn" data-target="c-name">Copy</button></div>
+<h3>Description</h3>
+<div class="ci"><span id="c-desc">NCAA bracket pool management for the Nitzberg Family Tournament Pool</span><button class="copy-btn" data-target="c-desc">Copy</button></div>
+</section>
 
-        <!-- Step 3: System Prompt -->
-        <section class="section">
-            <h2>Step 3: Paste the System Prompt</h2>
-            <p>Copy this entire prompt and paste it in the "Instructions" field:</p>
-            
-            <div class="copyable-block">
-                <button class="copy-btn" onclick="copyToClipboard(this, `You are Pool Commissioner AI — Jacob Nitzberg's NCAA bracket pool analyst and content assistant for the Nitzberg Family NCAA Tournament Pool on ESPN Tournament Challenge.
-
-VOICE (non-negotiable — follow EXACTLY):
-- Open every email: \"Hi everyone-\" (hyphen, not colon)
-- Close every email: \"-Jacob\"
-- Mention EVERY participant by name in standings discussions (26 people — count before finishing)
-- Use exact numbers: \"14 of 18 brackets\" not \"most brackets\"
-- Warm, family-first, analytical tone. Never generic AI voice.
-- Weave game results into POOL impact — never just sports recap in isolation.
-
-CRITICAL RULES:
-- NEVER fabricate scores, standings, or game results. If you don't have data, say: \"I don't have current data for that. Paste the latest from ESPN and I'll analyze it.\"
-- NEVER present predictions as facts. Label clearly: \"PREDICTION\" vs \"ACTUAL RESULT.\"
-- NEVER confuse participants — verify names against the 26-person list in your knowledge file before every output.
-- NEVER skip participants in standings recaps. Every person gets mentioned.
-- NEVER use prior-year tournament data as current-year data without labeling it as historical.
-- If web search fails or returns unclear data, say so immediately. Do not silently guess.
-- All email drafts are DRAFTS — remind Jacob to review before sending.
-
-CAPABILITIES: Use web search to find scores on espn.com and news. Use Code Interpreter for scenario tables, calculations, and charts. Reference your knowledge file for pool data, analytics, and Jacob's writing style.
-
-Before outputting any email, self-check:
-✅ Opens with \"Hi everyone-\"?
-✅ Closes with \"-Jacob\"?
-✅ All 26 participants mentioned?
-✅ No fabricated or unverified data?
-✅ Specific numbers, not vague language?`)">
-                    <svg class="copy-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                    </svg>
-                    Copy
-                </button>
-You are Pool Commissioner AI — Jacob Nitzberg's NCAA bracket pool analyst and content assistant for the Nitzberg Family NCAA Tournament Pool on ESPN Tournament Challenge.
+<!-- STEP 3 -->
+<section class="section" id="step3">
+<h2>Step 3: Paste the System Prompt</h2>
+<p>Copy this entire prompt and paste it into the <strong>Instructions</strong> field:</p>
+<div class="cb"><button class="copy-btn" data-target="c-prompt">Copy</button><pre id="c-prompt" style="margin:0;font:inherit;white-space:pre-wrap">You are Pool Commissioner AI — Jacob Nitzberg's NCAA bracket pool analyst and content assistant for the Nitzberg Family NCAA Tournament Pool on ESPN Tournament Challenge.
 
 VOICE (non-negotiable — follow EXACTLY):
 - Open every email: "Hi everyone-" (hyphen, not colon)
@@ -364,293 +123,335 @@ CRITICAL RULES:
 - If web search fails or returns unclear data, say so immediately. Do not silently guess.
 - All email drafts are DRAFTS — remind Jacob to review before sending.
 
-CAPABILITIES: Use web search to find scores on espn.com and news. Use Code Interpreter for scenario tables, calculations, and charts. Reference your knowledge file for pool data, analytics, and Jacob's writing style.
+CAPABILITIES: Use web search to find scores on espn.com and news. Use Code Interpreter for scenario tables, calculations, and charts. When you need live data, use Code Interpreter to fetch ESPN API endpoints (JSON, no auth required) — see your knowledge file for the full endpoint list. Reference your knowledge file for pool data, analytics, and Jacob's writing style.
 
 Before outputting any email, self-check:
 ✅ Opens with "Hi everyone-"?
 ✅ Closes with "-Jacob"?
 ✅ All 26 participants mentioned?
 ✅ No fabricated or unverified data?
-✅ Specific numbers, not vague language?
-            </div>
-        </section>
+✅ Specific numbers, not vague language?</pre></div>
+</section>
 
-        <!-- Step 4: Knowledge Base -->
-        <section class="section">
-            <h2>Step 4: Upload the Knowledge Base</h2>
-            <p>Download the pool data file and upload it to your Custom GPT:</p>
-            
-            <a href="knowledge-base.md" class="btn-primary" download>📄 Download Knowledge Base</a>
-            
-            <div class="info-card">
-                <h4>Instructions:</h4>
-                <ol>
-                    <li>Download the <code>knowledge-base.md</code> file above</li>
-                    <li>In your Custom GPT configuration, scroll to <strong>Knowledge</strong></li>
-                    <li>Upload the downloaded file</li>
-                </ol>
-                <p><em>This .md file contains your pool data, writing style guide, analytics frameworks, and workflow templates.</em></p>
-            </div>
-        </section>
+<!-- STEP 4 -->
+<section class="section" id="step4">
+<h2>Step 4: Upload the Knowledge Base</h2>
+<p>Download this file, then upload it in the <strong>Knowledge</strong> section of your Custom GPT:</p>
+<a href="knowledge-base.md" class="btn-dl" download>📄 Download Knowledge Base (.md)</a>
+<div class="info">
+<strong>What's in this file:</strong> All 26 pool participants, your writing style guide (extracted from your actual emails), analytics frameworks (KenPom, NET rankings, seed performance data), ESPN API endpoints, workflow templates, tournament phase guide, email automation instructions, and edge case handling.
+</div>
+</section>
 
-        <!-- Step 5: Configure Capabilities -->
-        <section class="section">
-            <h2>Step 5: Configure Capabilities</h2>
-            <p>In the Capabilities section, set these toggles:</p>
-            
-            <ul class="checklist">
-                <li>Web Search — ON</li>
-                <li>Code Interpreter & Data Analysis — ON</li>
-                <li class="off">DALL·E Image Generation — OFF (not needed)</li>
-            </ul>
-        </section>
+<!-- STEP 5 -->
+<section class="section" id="step5">
+<h2>Step 5: Configure Capabilities</h2>
+<p>In the <strong>Capabilities</strong> section, set these toggles:</p>
+<ul class="checklist">
+<li>Web Search — ON</li>
+<li>Code Interpreter &amp; Data Analysis — ON</li>
+<li class="off">DALL·E Image Generation — OFF (not needed)</li>
+</ul>
+</section>
 
-        <!-- Step 6: Conversation Starters -->
-        <section class="section">
-            <h2>Step 6: Add Conversation Starters</h2>
-            <p>Add these 4 conversation starters to help users get started:</p>
-            
-            <h3>Starter 1</h3>
-            <div class="copyable-inline">
-                <button class="copy-btn" onclick="copyToClipboard(this, 'What should I know before Selection Sunday?')">
-                    <svg class="copy-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                    </svg>
-                    Copy
-                </button>
-                What should I know before Selection Sunday?
-            </div>
+<!-- STEP 6 -->
+<section class="section" id="step6">
+<h2>Step 6: Add Conversation Starters</h2>
+<p>Add these 4 starters (they appear as buttons when you open the GPT):</p>
+<div class="ci"><span id="c-s1">What should I know before Selection Sunday?</span><button class="copy-btn" data-target="c-s1">Copy</button></div>
+<div class="ci"><span id="c-s2">Help me build my bracket</span><button class="copy-btn" data-target="c-s2">Copy</button></div>
+<div class="ci"><span id="c-s3">Write a recap email (I'll paste standings)</span><button class="copy-btn" data-target="c-s3">Copy</button></div>
+<div class="ci"><span id="c-s4">Who can still win? Run scenario analysis</span><button class="copy-btn" data-target="c-s4">Copy</button></div>
+</section>
 
-            <h3>Starter 2</h3>
-            <div class="copyable-inline">
-                <button class="copy-btn" onclick="copyToClipboard(this, 'Help me build my bracket')">
-                    <svg class="copy-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                    </svg>
-                    Copy
-                </button>
-                Help me build my bracket
-            </div>
+<!-- STEP 7 -->
+<section class="section" id="step7">
+<h2>Step 7: Save &amp; Test</h2>
+<p>Click <strong>Save</strong> → <strong>Only me</strong>. You're live! Try the test prompts in the <a href="#prompts">Ready-to-Use Prompts</a> section below.</p>
+</section>
 
-            <h3>Starter 3</h3>
-            <div class="copyable-inline">
-                <button class="copy-btn" onclick="copyToClipboard(this, 'Write a recap email (I\'ll paste standings)')">
-                    <svg class="copy-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                    </svg>
-                    Copy
-                </button>
-                Write a recap email (I'll paste standings)
-            </div>
+<!-- ESPN API -->
+<section class="section" id="espn-api">
+<h2>📡 ESPN API Reference</h2>
+<p>These free, no-authentication ESPN endpoints return JSON data. Your Custom GPT can fetch them via <strong>Code Interpreter</strong> — just ask it to pull live data.</p>
 
-            <h3>Starter 4</h3>
-            <div class="copyable-inline">
-                <button class="copy-btn" onclick="copyToClipboard(this, 'Who can still win? Run scenario analysis')">
-                    <svg class="copy-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                    </svg>
-                    Copy
-                </button>
-                Who can still win? Run scenario analysis
-            </div>
-        </section>
+<h3>Live Scores</h3>
+<div class="ci"><span id="c-api1">https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard</span><button class="copy-btn" data-target="c-api1">Copy</button></div>
 
-        <!-- Step 7: Save & Test -->
-        <section class="section">
-            <h2>Step 7: Save & Test</h2>
-            <ol>
-                <li>Click <strong>Save</strong> → <strong>Only me</strong></li>
-                <li>Test with these prompts:</li>
-            </ol>
-            
-            <h3>Pre-Selection Sunday Test Prompt</h3>
-            <div class="copyable-block">
-                <button class="copy-btn" onclick="copyToClipboard(this, 'Selection Sunday is March 15. Search the web for the latest NCAA tournament projections, conference tournament results, and any major injury news. Give me a pre-Selection Sunday briefing: top contenders, undervalued teams, upset risks, and what I should watch for when the bracket drops Sunday evening. Include efficiency context and historical seed performance rates.')">
-                    <svg class="copy-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                    </svg>
-                    Copy
-                </button>
-Selection Sunday is March 15. Search the web for the latest NCAA tournament projections, conference tournament results, and any major injury news. Give me a pre-Selection Sunday briefing: top contenders, undervalued teams, upset risks, and what I should watch for when the bracket drops Sunday evening. Include efficiency context and historical seed performance rates.
-            </div>
+<h3>Scores by Date (replace YYYYMMDD)</h3>
+<div class="ci"><span id="c-api2">https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?dates=YYYYMMDD</span><button class="copy-btn" data-target="c-api2">Copy</button></div>
 
-            <h3>Post-Selection Sunday Test Prompt</h3>
-            <div class="copyable-block">
-                <button class="copy-btn" onclick="copyToClipboard(this, 'The 2026 NCAA Tournament bracket is set. Search the web for the complete bracket. Then build me a recommended bracket with: predicted winners for each Round 1 game with confidence levels, my Final Four picks with reasoning based on efficiency metrics and matchup analysis, and my champion pick. Remember this is a 25-person family pool — optimize for accuracy, not wild contrarian swings.')">
-                    <svg class="copy-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                    </svg>
-                    Copy
-                </button>
-The 2026 NCAA Tournament bracket is set. Search the web for the complete bracket. Then build me a recommended bracket with: predicted winners for each Round 1 game with confidence levels, my Final Four picks with reasoning based on efficiency metrics and matchup analysis, and my champion pick. Remember this is a 25-person family pool — optimize for accuracy, not wild contrarian swings.
-            </div>
-        </section>
+<h3>Rankings (AP / Coaches Poll)</h3>
+<div class="ci"><span id="c-api3">https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/rankings</span><button class="copy-btn" data-target="c-api3">Copy</button></div>
 
-        <!-- How Pool Data Works -->
-        <section class="section">
-            <h2>📊 How Pool Data Works</h2>
-            <div class="info-card">
-                <h4>Important Notes:</h4>
-                <ul>
-                    <li><strong>✅ The AI CAN:</strong> Search ESPN for general scores and news</li>
-                    <li><strong>❌ The AI CANNOT:</strong> Log into ESPN Tournament Challenge (requires your login)</li>
-                    <li><strong>For pool-specific analysis:</strong> Copy-paste your standings from ESPN into the chat</li>
-                </ul>
-                
-                <h4>Quick Guide:</h4>
-                <ol>
-                    <li>Go to your ESPN Tournament Challenge group page</li>
-                    <li>Click on the standings/leaderboard</li>
-                    <li>Select and copy the standings table</li>
-                    <li>Paste it into your Pool Commissioner AI chat</li>
-                </ol>
-            </div>
-        </section>
+<h3>All Teams</h3>
+<div class="ci"><span id="c-api4">https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams</span><button class="copy-btn" data-target="c-api4">Copy</button></div>
 
-        <!-- Participant Email Directory -->
-        <section class="section">
-            <h2>📧 Participant Email Directory</h2>
-            
-            <h3>All Emails (Copy for BCC/Zapier)</h3>
-            <div class="copyable-block">
-                <button class="copy-btn" onclick="copyToClipboard(this, 'jacob.nitzberg@gmail.com, alyssabiondi@gmail.com, brooke.mcclimans@gmail.com, emnitzberg@gmail.com, jason.craine12@gmail.com, cl2246@aol.com, levi.nitzberg@gmail.com, marktblackman@gmail.com, shank1977@aol.com, mike.mcclimans@gmail.com, nickperry0@yahoo.com, bnitzberg@related.com, pblackman@intero.com, scottdlipton@gmail.com, SNitzberg@midamericagrp.com, vivian.b.nitzberg@gmail.com, lindahblackman@gmail.com, blackman.carla@gmail.com, ed@cazalet.com, jessicanitzberg@yahoo.com, laurynw928@gmail.com, Sarahannelipton@gmail.com')">
-                    <svg class="copy-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                    </svg>
-                    Copy
-                </button>
-jacob.nitzberg@gmail.com, alyssabiondi@gmail.com, brooke.mcclimans@gmail.com, emnitzberg@gmail.com, jason.craine12@gmail.com, cl2246@aol.com, levi.nitzberg@gmail.com, marktblackman@gmail.com, shank1977@aol.com, mike.mcclimans@gmail.com, nickperry0@yahoo.com, bnitzberg@related.com, pblackman@intero.com, scottdlipton@gmail.com, SNitzberg@midamericagrp.com, vivian.b.nitzberg@gmail.com, lindahblackman@gmail.com, blackman.carla@gmail.com, ed@cazalet.com, jessicanitzberg@yahoo.com, laurynw928@gmail.com, Sarahannelipton@gmail.com
-            </div>
+<h3>Conference Standings</h3>
+<div class="ci"><span id="c-api5">https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/standings</span><button class="copy-btn" data-target="c-api5">Copy</button></div>
 
-            <h3>Complete Directory</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>Jacob Nitzberg</td><td>jacob.nitzberg@gmail.com</td></tr>
-                    <tr><td>Abby Baron</td><td>(shared with Jacob)</td></tr>
-                    <tr><td>Alyssa Biondi</td><td>alyssabiondi@gmail.com</td></tr>
-                    <tr><td>Blake McClimans</td><td>(via Mike McClimans)</td></tr>
-                    <tr><td>Brian Nitzberg</td><td>bnitzberg@related.com</td></tr>
-                    <tr><td>Brooke McClimans</td><td>brooke.mcclimans@gmail.com</td></tr>
-                    <tr><td>Carla Blackman</td><td>blackman.carla@gmail.com</td></tr>
-                    <tr><td>Edward Cazalet</td><td>ed@cazalet.com</td></tr>
-                    <tr><td>Elyse Perry (née Nitzberg)</td><td>emnitzberg@gmail.com</td></tr>
-                    <tr><td>Hayes McClimans</td><td>(via Mike McClimans)</td></tr>
-                    <tr><td>Jason Craine</td><td>jason.craine12@gmail.com</td></tr>
-                    <tr><td>Jess Nitzberg</td><td>jessicanitzberg@yahoo.com</td></tr>
-                    <tr><td>Joel Nitzberg</td><td>cl2246@aol.com</td></tr>
-                    <tr><td>Justin Weinshank</td><td>(via Matt Weinshank)</td></tr>
-                    <tr><td>Lauryn Weinshank</td><td>laurynw928@gmail.com</td></tr>
-                    <tr><td>Levi Nitzberg</td><td>levi.nitzberg@gmail.com</td></tr>
-                    <tr><td>Linda Blackman</td><td>lindahblackman@gmail.com</td></tr>
-                    <tr><td>Mark Blackman</td><td>marktblackman@gmail.com</td></tr>
-                    <tr><td>Matt Weinshank</td><td>shank1977@aol.com</td></tr>
-                    <tr><td>Mike McClimans</td><td>mike.mcclimans@gmail.com</td></tr>
-                    <tr><td>Nick Perry</td><td>nickperry0@yahoo.com</td></tr>
-                    <tr><td>Pam Blackman</td><td>pblackman@intero.com</td></tr>
-                    <tr><td>Sarah Lipton</td><td>Sarahannelipton@gmail.com</td></tr>
-                    <tr><td>Scott Lipton</td><td>scottdlipton@gmail.com</td></tr>
-                    <tr><td>Stan Nitzberg</td><td>SNitzberg@midamericagrp.com</td></tr>
-                    <tr><td>Vivian Nitzberg</td><td>vivian.b.nitzberg@gmail.com</td></tr>
-                </tbody>
-            </table>
-        </section>
+<h3>Game Summary (replace {eventId})</h3>
+<div class="ci"><span id="c-api6">https://site.web.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?event={eventId}</span><button class="copy-btn" data-target="c-api6">Copy</button></div>
 
-        <!-- Wispr Flow -->
-        <section class="section">
-            <h2>🎤 Phase 2: Wispr Flow (Optional)</h2>
-            <p>Once you're comfortable with Pool Commissioner AI, consider adding voice dictation:</p>
-            
-            <ul>
-                <li><strong>Wispr Flow</strong> — $15/mo AI voice dictation</li>
-                <li>Available at <a href="https://wisprflow.com" target="_blank">wisprflow.com</a></li>
-                <li>Works in any app on Mac/Windows/iPhone/Android</li>
-                <li>Perfect for dictating pool updates while multitasking</li>
-                <li><em>"Write a recap email for Round 2. Virginia Tech upset Duke, and here are the current standings..."</em></li>
-            </ul>
-        </section>
+<h3>Code Interpreter Example</h3>
+<div class="cb"><button class="copy-btn" data-target="c-api-code">Copy</button><pre id="c-api-code" style="margin:0;font:inherit;white-space:pre-wrap">Use Code Interpreter to fetch the latest scores from https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard and parse the JSON to show me today's games, scores, and status.</pre></div>
 
-        <!-- Troubleshooting -->
-        <section class="section">
-            <h2>🛠️ Troubleshooting & Support</h2>
-            
-            <h3>Common Issues & Fixes</h3>
-            <ul>
-                <li><strong>AI voice sounds wrong:</strong> Start a new conversation to reset the voice</li>
-                <li><strong>Analysis seems off:</strong> Re-paste the latest standings from ESPN</li>
-                <li><strong>Web search fails:</strong> Manually paste the data from ESPN into the chat</li>
-                <li><strong>Missing participants:</strong> Remind the AI to mention all 26 people by name</li>
-            </ul>
+<div class="info">
+<strong>Also useful for web search:</strong>
+<ul>
+<li>espn.com/mens-college-basketball/scoreboard — rendered scores</li>
+<li>espn.com/mens-college-basketball/rankings — AP/Coaches poll</li>
+<li>espn.com/mens-college-basketball/bracketology — Lunardi's projections</li>
+<li>ncaa.com/march-madness-live/bracket — Official NCAA bracket</li>
+<li>barttorvik.com — Free efficiency ratings (may need manual access)</li>
+<li>warrennolan.com/basketball — NET rankings, Quad records</li>
+</ul>
+</div>
+</section>
 
-            <h3>Get Help</h3>
-            <p>If anything seems weird: screenshot the issue and text Mark</p>
-        </section>
-    </main>
+<!-- DATA FLOW -->
+<section class="section" id="data-flow">
+<h2>📊 How the Data Pipeline Works</h2>
+<div class="info">
+<h3>Three Data Channels:</h3>
+<p><strong>Channel 1 — ESPN API via Code Interpreter (automated):</strong> Ask "fetch today's scores from the ESPN API" and the AI writes Python code to pull live JSON data. Works for scores, rankings, team stats, standings.</p>
+<p><strong>Channel 2 — Web Search (semi-automated):</strong> Ask "search for the latest tournament news" and the AI searches ESPN, CBS Sports, etc. Works for injuries, bracketology, expert analysis.</p>
+<p><strong>Channel 3 — Manual Paste (pool-specific):</strong> Copy-paste your ESPN Tournament Challenge group standings into the chat. The AI can't log into ESPN — this is the only way to get pool-specific data.</p>
+<h3>Combined Power:</h3>
+<p>In one conversation: "Fetch today's scores" + "Search for injury news" + [paste standings] → "Write the recap email combining all of this." The AI synthesizes all three sources into one email in your voice.</p>
+</div>
+</section>
 
-    <footer class="footer">
-        <div class="container">
-            <p>Built with ⚡ by Mark & Kira</p>
-            <p>March 2026</p>
-        </div>
-    </footer>
+<!-- PROMPTS -->
+<section class="section" id="prompts">
+<h2>🚀 Ready-to-Use Prompts</h2>
 
-    <script>
-        function copyToClipboard(button, text) {
-            navigator.clipboard.writeText(text).then(function() {
-                // Store original content
-                const originalHTML = button.innerHTML;
-                
-                // Change to success state
-                button.innerHTML = `<svg class="copy-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
-                </svg>Copied!`;
-                button.classList.add('copied');
-                
-                // Revert after 2 seconds
-                setTimeout(function() {
-                    button.innerHTML = originalHTML;
-                    button.classList.remove('copied');
-                }, 2000);
-            }).catch(function(err) {
-                console.error('Could not copy text: ', err);
-                // Fallback for older browsers
-                const textArea = document.createElement('textarea');
-                textArea.value = text;
-                document.body.appendChild(textArea);
-                textArea.focus();
-                textArea.select();
-                try {
-                    document.execCommand('copy');
-                    const originalHTML = button.innerHTML;
-                    button.innerHTML = `<svg class="copy-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
-                    </svg>Copied!`;
-                    button.classList.add('copied');
-                    setTimeout(function() {
-                        button.innerHTML = originalHTML;
-                        button.classList.remove('copied');
-                    }, 2000);
-                } catch (err) {
-                    console.error('Fallback: Could not copy text: ', err);
-                }
-                document.body.removeChild(textArea);
-            });
-        }
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
+<h3>Pre-Selection Sunday Briefing</h3>
+<div class="cb"><button class="copy-btn" data-target="c-p1">Copy</button><pre id="c-p1" style="margin:0;font:inherit;white-space:pre-wrap">Selection Sunday is March 15. Search the web for the latest NCAA tournament projections, conference tournament results, and any major injury news. Give me a pre-Selection Sunday briefing: top contenders, undervalued teams, upset risks, and what I should watch for when the bracket drops Sunday evening. Include efficiency context and historical seed performance rates.</pre></div>
+
+<h3>Build My Bracket</h3>
+<div class="cb"><button class="copy-btn" data-target="c-p2">Copy</button><pre id="c-p2" style="margin:0;font:inherit;white-space:pre-wrap">The 2026 NCAA Tournament bracket is set. Search the web for the complete bracket. Then build me a recommended bracket with: predicted winners for each Round 1 game with confidence levels, my Final Four picks with reasoning based on efficiency metrics and matchup analysis, and my champion pick. Remember this is a 25-person family pool — optimize for accuracy, not wild contrarian swings.</pre></div>
+
+<h3>Tournament Recap Email</h3>
+<div class="cb"><button class="copy-btn" data-target="c-p3">Copy</button><pre id="c-p3" style="margin:0;font:inherit;white-space:pre-wrap">Here are the current pool standings [PASTE YOUR STANDINGS HERE]. Write a tournament recap email in my voice covering the latest round of games. Mention every participant by name, focus on how the game results affect pool standings, include how many brackets still have their champion alive, and build a scenario table showing who wins the pool under each remaining outcome. Sign it -Jacob.</pre></div>
+
+<h3>Live Score Check (ESPN API)</h3>
+<div class="cb"><button class="copy-btn" data-target="c-p4">Copy</button><pre id="c-p4" style="margin:0;font:inherit;white-space:pre-wrap">Use Code Interpreter to fetch the latest scores from https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard and give me a quick update on today's games and what to watch for in our pool.</pre></div>
+
+<h3>Scenario Analysis</h3>
+<div class="cb"><button class="copy-btn" data-target="c-p5">Copy</button><pre id="c-p5" style="margin:0;font:inherit;white-space:pre-wrap">Here are the remaining teams in the tournament: [LIST TEAMS]. Here are our current pool standings: [PASTE STANDINGS]. Run a complete scenario analysis showing who wins our pool under each possible outcome. Include probability estimates and highlight the key games that determine the pool winner.</pre></div>
+
+<h3>Bracket Submission Reminder</h3>
+<div class="cb"><button class="copy-btn" data-target="c-p6">Copy</button><pre id="c-p6" style="margin:0;font:inherit;white-space:pre-wrap">Brackets are due March 19 at 12:15 PM ET. Write a friendly reminder email to the pool in my voice encouraging everyone to get their brackets in. Mention that Selection Sunday is this weekend and the deadline is Thursday.</pre></div>
+
+<h3>Final Wrap-Up Email</h3>
+<div class="cb"><button class="copy-btn" data-target="c-p7">Copy</button><pre id="c-p7" style="margin:0;font:inherit;white-space:pre-wrap">The tournament is over. Here are the final pool standings: [PASTE STANDINGS]. Write the championship wrap-up email. Include final standings for every participant, highlight the pool winner, give awards (best upset picker, worst bracket, best Final Four, most unique champion pick), and close with a note about next year. Make it warm and celebratory — this is the final email of the season.</pre></div>
+</section>
+
+<!-- EMAILS -->
+<section class="section" id="emails">
+<h2>📧 Participant Email Directory</h2>
+
+<h3>All Emails — Comma-Separated (for BCC / Zapier)</h3>
+<div class="cb"><button class="copy-btn" data-target="c-emails">Copy</button><pre id="c-emails" style="margin:0;font:inherit;white-space:pre-wrap">jacob.nitzberg@gmail.com, alyssabiondi@gmail.com, brooke.mcclimans@gmail.com, emnitzberg@gmail.com, jason.craine12@gmail.com, cl2246@aol.com, levi.nitzberg@gmail.com, marktblackman@gmail.com, shank1977@aol.com, mike.mcclimans@gmail.com, nickperry0@yahoo.com, bnitzberg@related.com, pblackman@intero.com, scottdlipton@gmail.com, SNitzberg@midamericagrp.com, vivian.b.nitzberg@gmail.com, lindahblackman@gmail.com, blackman.carla@gmail.com, ed@cazalet.com, jessicanitzberg@yahoo.com, laurynw928@gmail.com, Sarahannelipton@gmail.com</pre></div>
+
+<h3>Complete Directory</h3>
+<table>
+<thead><tr><th>Name</th><th>Email</th></tr></thead>
+<tbody>
+<tr><td>Jacob Nitzberg</td><td>jacob.nitzberg@gmail.com</td></tr>
+<tr><td>Abby Baron</td><td>(shared with Jacob)</td></tr>
+<tr><td>Alyssa Biondi</td><td>alyssabiondi@gmail.com</td></tr>
+<tr><td>Blake McClimans</td><td>(via Mike McClimans)</td></tr>
+<tr><td>Brian Nitzberg</td><td>bnitzberg@related.com</td></tr>
+<tr><td>Brooke McClimans</td><td>brooke.mcclimans@gmail.com</td></tr>
+<tr><td>Carla Blackman</td><td>blackman.carla@gmail.com</td></tr>
+<tr><td>Edward Cazalet</td><td>ed@cazalet.com</td></tr>
+<tr><td>Elyse Perry (née Nitzberg)</td><td>emnitzberg@gmail.com</td></tr>
+<tr><td>Hayes McClimans</td><td>(via Mike McClimans)</td></tr>
+<tr><td>Jason Craine</td><td>jason.craine12@gmail.com</td></tr>
+<tr><td>Jess Nitzberg</td><td>jessicanitzberg@yahoo.com</td></tr>
+<tr><td>Joel Nitzberg</td><td>cl2246@aol.com</td></tr>
+<tr><td>Justin Weinshank</td><td>(via Matt Weinshank)</td></tr>
+<tr><td>Lauryn Weinshank</td><td>laurynw928@gmail.com</td></tr>
+<tr><td>Levi Nitzberg</td><td>levi.nitzberg@gmail.com</td></tr>
+<tr><td>Linda Blackman</td><td>lindahblackman@gmail.com</td></tr>
+<tr><td>Mark Blackman</td><td>marktblackman@gmail.com</td></tr>
+<tr><td>Matt Weinshank</td><td>shank1977@aol.com</td></tr>
+<tr><td>Mike McClimans</td><td>mike.mcclimans@gmail.com</td></tr>
+<tr><td>Nick Perry</td><td>nickperry0@yahoo.com</td></tr>
+<tr><td>Pam Blackman</td><td>pblackman@intero.com</td></tr>
+<tr><td>Sarah Lipton</td><td>Sarahannelipton@gmail.com</td></tr>
+<tr><td>Scott Lipton</td><td>scottdlipton@gmail.com</td></tr>
+<tr><td>Stan Nitzberg</td><td>SNitzberg@midamericagrp.com</td></tr>
+<tr><td>Vivian Nitzberg</td><td>vivian.b.nitzberg@gmail.com</td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- ZAPIER -->
+<section class="section" id="zapier">
+<h2>⚡ Zapier Email Automation</h2>
+<p>Automate distributing your AI-generated recap emails to the whole family.</p>
+
+<h3>Option A: Email Trigger (Recommended)</h3>
+<ol>
+<li>Create a free account at <a href="https://zapier.com" target="_blank">zapier.com</a></li>
+<li>Create a new Zap:
+<ul>
+<li><strong>Trigger:</strong> "Email by Zapier" — this gives you a unique Zapier email address</li>
+<li><strong>Action:</strong> "Gmail — Send Email"</li>
+<li><strong>To/BCC:</strong> Paste the comma-separated email list above</li>
+<li><strong>Subject:</strong> Use the trigger email's subject line</li>
+<li><strong>Body:</strong> Use the trigger email's body</li>
+</ul></li>
+<li>Now your workflow: Generate recap in Pool Commissioner AI → copy → send to your Zapier trigger email → Zapier distributes to everyone</li>
+</ol>
+
+<h3>Option B: Gmail Label Trigger</h3>
+<ol>
+<li>Same Zapier account</li>
+<li>Create a Zap:
+<ul>
+<li><strong>Trigger:</strong> "Gmail — New Email Matching Search" with query <code>label:pool-updates</code></li>
+<li><strong>Action:</strong> "Gmail — Send Email" to the full participant list</li>
+</ul></li>
+<li>Workflow: Compose in Gmail → add "pool-updates" label → Zapier auto-distributes</li>
+</ol>
+
+<h3>Option C: Scheduled Reminders</h3>
+<ol>
+<li>Create a Zap with trigger "Schedule by Zapier"</li>
+<li>Set to fire after each tournament round (Friday evening, Sunday evening, etc.)</li>
+<li>Action: Send YOU a reminder email — "Time to generate the pool recap!"</li>
+<li>This ensures you never forget to send updates during the tournament</li>
+</ol>
+
+<div class="info">
+<strong>Pro tip:</strong> Add a second action to any Zap to log each sent email to a Google Sheet — creates an automatic record of all pool communications for next year's reference.
+</div>
+</section>
+
+<!-- EMAIL WORKFLOW -->
+<section class="section" id="email-workflow">
+<h2>📬 Complete Email Workflow — End to End</h2>
+
+<h3>The Full Pipeline: ESPN → AI → Email → Family</h3>
+<ol>
+<li><strong>Gather data:</strong> Open ESPN Tournament Challenge → copy standings. Note any big upsets.</li>
+<li><strong>Generate content:</strong> Paste standings into Pool Commissioner AI → ask for recap email</li>
+<li><strong>Review:</strong> Check names, check data, add personal touches</li>
+<li><strong>Distribute:</strong> Copy email → send via Gmail BCC or Zapier trigger</li>
+</ol>
+
+<h3>Tournament Communication Calendar</h3>
+<table>
+<thead><tr><th>When</th><th>What to Send</th><th>Prompt</th></tr></thead>
+<tbody>
+<tr><td>Before March 15</td><td>Hype / bracket tips</td><td>Pre-Selection Sunday Briefing</td></tr>
+<tr><td>March 15 evening</td><td>Bracket analysis</td><td>Build My Bracket</td></tr>
+<tr><td>March 18</td><td>Submission reminder</td><td>Bracket Submission Reminder</td></tr>
+<tr><td>March 20 (Fri)</td><td>Round of 64 Day 1</td><td>Tournament Recap Email</td></tr>
+<tr><td>March 21 (Sat)</td><td>Round of 64 Day 2</td><td>Tournament Recap Email</td></tr>
+<tr><td>March 22 (Sun)</td><td>Round of 32</td><td>Recap + Scenarios</td></tr>
+<tr><td>March 27 (Fri)</td><td>Sweet 16</td><td>Recap + Scenarios</td></tr>
+<tr><td>March 29 (Sun)</td><td>Elite 8</td><td>Scenario Analysis</td></tr>
+<tr><td>April 4 (Sat)</td><td>Final Four</td><td>Scenario Analysis</td></tr>
+<tr><td>April 6 (Mon)</td><td>Championship wrap-up</td><td>Final Wrap-Up Email</td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- WISPR -->
+<section class="section" id="wispr">
+<h2>🎤 Phase 2: Wispr Flow ($15/mo)</h2>
+<p>Once you're rolling with ChatGPT, add AI voice dictation:</p>
+<ul>
+<li><a href="https://wisprflow.com" target="_blank"><strong>wisprflow.com</strong></a> — works in ANY app (Mac / Windows / iPhone / Android)</li>
+<li>Dictate pool updates while walking Dylan around the house</li>
+<li>Speak naturally — Wispr converts to text in real time</li>
+<li>Works in the ChatGPT browser tab, Gmail, Notes, anywhere</li>
+<li>⚠️ Don't use simultaneously with ChatGPT's built-in voice mode — pick one or the other</li>
+</ul>
+</section>
+
+<!-- FUTURE -->
+<section class="section" id="future">
+<h2>🔮 What's Next — The Bigger Picture</h2>
+<p>After the tournament, think about what this opens up:</p>
+<ul>
+<li><strong>Publish your Custom GPT</strong> — share it with other bracket pool commissioners via the ChatGPT GPT Store</li>
+<li><strong>Start a sports analytics newsletter</strong> — your ESPN credentials + AI-assisted content = a unique voice nobody else has</li>
+<li><strong>Content calendar:</strong> One 30-min voice-dictated session per week during basketball season</li>
+<li><strong>The core insight:</strong> You combine data analysis, community management, and warm storytelling. You do it for 25 people. There's a world where it's 25,000.</li>
+<li><strong>ESPN + AI fluency</strong> = a consulting and content package that very few people in the world can offer</li>
+</ul>
+<p><em>"After the tournament, let's talk about what's next." — Mark</em></p>
+</section>
+
+<!-- TROUBLESHOOTING -->
+<section class="section" id="troubleshooting">
+<h2>🛠️ Troubleshooting</h2>
+<table>
+<thead><tr><th>Problem</th><th>Fix</th></tr></thead>
+<tbody>
+<tr><td>AI voice sounds wrong / generic</td><td>Start a new conversation to reset</td></tr>
+<tr><td>Analysis seems off or outdated</td><td>Re-paste the latest standings from ESPN</td></tr>
+<tr><td>Web search can't find data</td><td>Use Code Interpreter with ESPN API endpoints instead</td></tr>
+<tr><td>ESPN API not working in Code Interpreter</td><td>Try the human-readable ESPN pages via web search</td></tr>
+<tr><td>Missing participants in emails</td><td>Remind the AI: "mention all 26 people"</td></tr>
+<tr><td>Can't access ESPN Tournament Challenge</td><td>Copy-paste standings manually — the AI can't log in</td></tr>
+<tr><td>Something else is broken</td><td>Screenshot it and text Mark</td></tr>
+</tbody>
+</table>
+</section>
+
+</main>
+<footer class="footer">
+<p>Built with ⚡ by Mark &amp; Kira — March 2026</p>
+</footer>
+
+<script>
+document.querySelectorAll('.copy-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        var targetId = this.getAttribute('data-target');
+        var target = document.getElementById(targetId);
+        if (!target) return;
+        var text = target.textContent.trim();
+        var button = this;
+        navigator.clipboard.writeText(text).then(function() {
+            button.textContent = '✓ Copied!';
+            button.classList.add('copied');
+            setTimeout(function() {
+                button.textContent = 'Copy';
+                button.classList.remove('copied');
+            }, 2000);
+        }).catch(function() {
+            // Fallback
+            var ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            button.textContent = '✓ Copied!';
+            button.classList.add('copied');
+            setTimeout(function() {
+                button.textContent = 'Copy';
+                button.classList.remove('copied');
+            }, 2000);
         });
-    </script>
+    });
+});
+document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+    a.addEventListener('click', function(e) {
+        e.preventDefault();
+        var el = document.querySelector(this.getAttribute('href'));
+        if (el) el.scrollIntoView({behavior:'smooth'});
+    });
+});
+</script>
 </body>
 </html>
