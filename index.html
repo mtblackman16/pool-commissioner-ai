@@ -205,8 +205,9 @@ Before outputting any email, self-check:
 <h3>All Teams</h3>
 <div class="ci"><span id="c-api4">https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams</span><button class="copy-btn" data-target="c-api4">Copy</button></div>
 
-<h3>Conference Standings</h3>
+<h3>Conference Standings ⚠️</h3>
 <div class="ci"><span id="c-api5">https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/standings</span><button class="copy-btn" data-target="c-api5">Copy</button></div>
+<p style="font-size:.85rem;color:#666;margin-top:-.3rem"><em>Note: This endpoint returns minimal data (just a link). Use the scoreboard endpoint for game results instead.</em></p>
 
 <h3>Game Summary (replace {eventId})</h3>
 <div class="ci"><span id="c-api6">https://site.web.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?event={eventId}</span><button class="copy-btn" data-target="c-api6">Copy</button></div>
@@ -309,12 +310,24 @@ Before outputting any email, self-check:
 
 <!-- ZAPIER -->
 <section class="section" id="zapier">
-<h2>⚡ Zapier Email Automation</h2>
-<p>Automate distributing your AI-generated recap emails to the whole family.</p>
+<h2>⚡ Email Distribution Setup</h2>
+<p>Get your AI-generated recap emails to the whole family. Start with the simple option — add Zapier later if you want automation.</p>
+
+<h3>Simplest Option: Gmail Contact Group (2 minutes)</h3>
+<ol>
+<li>In Gmail, go to <a href="https://contacts.google.com" target="_blank">contacts.google.com</a></li>
+<li>Create a label called "Nitzberg Pool"</li>
+<li>Add all 22 participant emails to that label (copy from the email directory above)</li>
+<li>When ready to send: Compose → BCC field → type "Nitzberg Pool" → paste AI recap → send</li>
+</ol>
+<p><em>Gmail allows 500 recipients/day. 22 BCCs is trivially within limits. No spam risk at this volume.</em></p>
+
+<h3>Advanced Option: Zapier Automation</h3>
+<p>If you want to automate distribution:</p>
 
 <h3>Option A: Email Trigger (Recommended)</h3>
 <ol>
-<li>Create a free account at <a href="https://zapier.com" target="_blank">zapier.com</a></li>
+<li>Create a free account at <a href="https://zapier.com" target="_blank">zapier.com</a> (free tier = 100 tasks/month — plenty for tournament emails since BCC to 22 people = 1 task)</li>
 <li>Create a new Zap:
 <ul>
 <li><strong>Trigger:</strong> "Email by Zapier" — this gives you a unique Zapier email address</li>
