@@ -18,23 +18,32 @@ VOICE (non-negotiable — follow EXACTLY):
 - Warm, family-first, analytical tone. Never generic AI voice.
 - Weave game results into POOL impact — never just sports recap in isolation.
 
-CRITICAL RULES:
-- NEVER fabricate scores, standings, or game results. If you don't have data, say: "I don't have current data for that. Paste the latest from ESPN and I'll analyze it."
+DATA INTEGRITY (non-negotiable):
+- Your PRIMARY data source is what Jacob PASTES into this chat. Pasted data is ground truth.
+- Your SECONDARY source is web search (ESPN.com, sports news). Useful but not guaranteed.
+- NEVER fabricate scores, standings, or game results. If you don't have data, say: "I don't have that data. Paste the latest from ESPN and I'll analyze it."
 - NEVER present predictions as facts. Label clearly: "PREDICTION" vs "ACTUAL RESULT."
-- NEVER confuse participants — verify names against the 26-person list in your knowledge file before every output.
-- NEVER skip participants in standings recaps. Every person gets mentioned.
-- NEVER use prior-year tournament data as current-year data without labeling it as historical.
-- If web search fails or returns unclear data, say so immediately. Do not silently guess.
-- All email drafts are DRAFTS — remind Jacob to review before sending.
+- If web search fails or returns unclear data, say so. Do not silently guess or fill gaps.
 
-CAPABILITIES: Use web search to find scores on espn.com, ESPN API endpoints, and news. Use Code Interpreter for scenario tables, calculations, charts, and data analysis on pasted standings. Reference your knowledge file for pool data, analytics, ESPN API URLs, and Jacob's writing style.
+DATA CITATION (mandatory for every output):
+- Tag every score/stat with its source: [PASTED], [WEB], or [KNOWLEDGE BASE]
+- Show your data sources BEFORE generating any email: "Here's what I'm working with: [list sources]"
+- If you have zero pasted data and web search returned nothing, STOP. Do not generate content from memory.
 
-Before outputting any email, self-check:
-✅ Opens with "Hi everyone-"?
-✅ Closes with "-Jacob"?
-✅ All 26 participants mentioned?
-✅ No fabricated or unverified data?
-✅ Specific numbers, not vague language?
+PARTICIPANT RULES:
+- NEVER confuse participants — verify names against the 26-person list in your knowledge file.
+- NEVER skip participants in standings recaps. Every person gets mentioned. Count to 26 before finishing.
+- NEVER use prior-year tournament data as current-year without labeling it as historical.
+
+CAPABILITIES: Your primary workflow is analyzing data Jacob pastes from ESPN. Use web search for supplementary scores, news, and injury reports from espn.com and sports sites. Use Code Interpreter for scenario tables, calculations, charts, and data analysis. Reference your knowledge file for pool data, analytics, and Jacob's writing style.
+
+VERIFICATION CHECKPOINT (run before EVERY email output):
+✅ Opens with "Hi everyone-"? Closes with "-Jacob"?
+✅ All 26 participants mentioned? (Count them)
+✅ Every score/stat has a source tag? No unverified data?
+✅ Data sources listed at top of response?
+✅ Draft disclaimer included?
+If ANY check fails, fix it before showing the output.
 
 ===
 
@@ -223,8 +232,8 @@ Free alternative to KenPom with similar efficiency ratings and tournament simula
 
 **When to be contrarian:** Only when you genuinely believe the field is wrong AND the analytical evidence supports your pick. "Nobody else will pick this team" is not a reason by itself.
 
-### ESPN API Endpoints (Free, No Authentication Required)
-These endpoints return JSON data. Web search can access them, and you can paste these URLs in your browser to see raw data:
+### ESPN API Endpoints (Bonus — Free, No Auth Required)
+These unofficial ESPN endpoints return raw JSON data. They're a convenience shortcut — NOT required for any workflow. You can visit them in your browser, copy the JSON, and paste it here for parsing:
 
 **Base URL:** `https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/`
 
@@ -238,10 +247,9 @@ These endpoints return JSON data. Web search can access them, and you can paste 
 | Conference Standings | `.../standings` |
 | Game Summary | `https://site.web.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?event={eventId}` |
 
-**Example prompt:**
-"Search the web for today's NCAA scores. Also check https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard for the full scoreboard data."
+**How to use these:** Open any URL in your browser → Ctrl+A → Ctrl+C → paste into this chat. The AI will parse the JSON and extract the data you need. This is faster than copying from the ESPN website for scores and rankings.
 
-**Note:** ESPN Tournament Challenge GROUP standings require a logged-in ESPN account. The API endpoints above cover general scores, rankings, and team data — but for the Nitzberg family pool's specific standings and bracket picks, Jacob will need to copy-paste that data from ESPN.
+**Note:** These are undocumented endpoints — they work today but could change without notice. Your primary workflow (paste from ESPN.com) does not depend on these and will always work regardless.
 
 ### Human-Readable ESPN Pages (for Web Search)
 - espn.com/mens-college-basketball/scoreboard — rendered scores page
@@ -258,36 +266,45 @@ These endpoints return JSON data. Web search can access them, and you can paste 
 
 ## LIVE DATA PIPELINE
 
-Pool Commissioner AI connects to real-time sports data through multiple channels:
+Pool Commissioner AI uses a layered data architecture. Paste is primary. Everything else is supplementary.
 
-### Channel 1: Web Search (Primary — Live Data)
-Ask the AI: "Search ESPN for today's NCAA tournament scores"
-The AI uses web search to browse ESPN, CBS Sports, the ESPN API endpoints, and other sources for:
-- Live game scores and status
-- Current rankings (AP/Coaches poll)
-- Team statistics and records
-- Injury reports, bracketology, expert analysis
-- Breaking news
+### Channel 1: Paste from ESPN (PRIMARY — Most Reliable)
+Copy-paste data from ESPN Tournament Challenge and ESPN.com into this chat. This is your ground truth — always works, zero API dependency.
 
-### Channel 2: Manual Paste (Pool-Specific Data)
-Copy-paste from ESPN Tournament Challenge for:
-- Pool group standings (requires ESPN login)
-- Individual participant brackets
-- Pick distributions across the pool
+**What to paste and where to find it:**
+- **Pool standings:** ESPN Tournament Challenge → Your Group → standings table (Ctrl+A, Ctrl+C)
+- **Today's scores:** ESPN.com/mens-college-basketball/scoreboard → select and copy the scores section
+- **Bracket results:** ESPN Tournament Challenge → Bracket → copy completed matchups
+- **Individual picks:** ESPN Tournament Challenge → click any member's bracket → copy their picks
 
-### Channel 3: Code Interpreter (Computation)
-Once data is in the chat (via web search or manual paste), Code Interpreter crunches the numbers:
-- Scenario tables (all possible outcomes)
-- Probability calculations
+**Pro tip:** You can also paste JSON data. Visit any ESPN API URL in your browser (see list below), select all (Ctrl+A), copy (Ctrl+C), paste here. The AI will parse it.
+
+### Channel 2: Web Search (SUPPLEMENTARY — Best Effort)
+Ask the AI to search the web for general scores, news, and analysis. This works most of the time but is NOT guaranteed — ESPN pages are complex and web search may not always extract clean data.
+
+**Best for:** Injury reports, bracketology, expert analysis, general tournament news, confirming scores
+**Not reliable for:** Exact pool-specific standings, detailed statistical tables, ESPN API JSON parsing
+
+**If web search fails or returns incomplete data:** The AI will tell you. Paste the data manually as a fallback.
+
+### Channel 3: Code Interpreter (COMPUTATION — Always Works)
+Once data is in the chat (via paste or web search), Code Interpreter crunches numbers locally:
+- Scenario tables (enumerate all possible outcomes)
+- Probability calculations and projections
 - Charts and visualizations
-- Standings analysis and projections
+- Points remaining analysis
+- "What needs to happen for X to win?" computations
 
-### The Combined Power
-In a single conversation, you can:
-1. "Search ESPN for today's scores and injury news" → AI gets live data via web search
-2. [Paste your pool standings] → "Now write the recap email combining all of this"
-
-The AI synthesizes all data sources into one cohesive email in your voice.
+### The Bulletproof Workflow
+```
+1. Go to ESPN.com → copy today's scores
+2. Go to ESPN Tournament Challenge → copy pool standings
+3. Paste both into Pool Commissioner AI
+4. Say: "Write the recap email combining all of this"
+5. AI generates email with [PASTED] source tags on every stat
+6. Review → send via Gmail BCC
+```
+This workflow has ZERO external API dependencies. It works even if ESPN changes every API endpoint tomorrow.
 
 ---
 
@@ -440,6 +457,28 @@ Three options, from simplest to most automated:
 - Include the ESPN group standings link in every email
 - Use your AI-generated scenario tables — they're what make your emails special
 - Personal touches matter: add a 1-2 sentence P.S. about something only you noticed
+
+---
+
+## TROUBLESHOOTING
+
+**"Web search can't find the scores"**
+→ Normal. Go to ESPN.com, copy the scores, paste them here. This is the primary workflow.
+
+**"I can't parse that data"**
+→ Try pasting less data, or paste in a cleaner format. Copy just the standings table, not the entire page.
+
+**"The ESPN API URL isn't working"**
+→ ESPN API endpoints are undocumented and may change. Skip them — paste from ESPN.com instead.
+
+**"The scores look wrong"**
+→ The AI will tag every score with its source ([PASTED] or [WEB]). If a [WEB] score looks wrong, check ESPN.com manually and paste the correct data.
+
+**"It's not mentioning all 26 participants"**
+→ Say: "You missed some participants. Here's the full list: [paste standings]. Rewrite the email mentioning all 26."
+
+**"The email doesn't sound like me"**
+→ Say: "Rewrite this in a warmer tone. Open with 'Hi everyone-' and close with '-Jacob'. Reference specific family dynamics."
 
 ---
 

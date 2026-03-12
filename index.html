@@ -141,7 +141,9 @@ CRITICAL RULES:
 - If web search fails or returns unclear data, say so immediately. Do not silently guess.
 - All email drafts are DRAFTS — remind Jacob to review before sending.
 
-CAPABILITIES: Use web search to find scores on espn.com, ESPN API endpoints, and news. Use Code Interpreter for scenario tables, calculations, charts, and data analysis on pasted standings. Reference your knowledge file for pool data, analytics, ESPN API URLs, and Jacob's writing style.
+DATA INTEGRITY: Your PRIMARY data source is what Jacob PASTES into this chat — that is ground truth. Your SECONDARY source is web search (espn.com, sports news) — useful but not guaranteed. NEVER fabricate data. Tag every stat with its source: [PASTED], [WEB], or [KNOWLEDGE BASE]. Show your data sources BEFORE generating any email.
+
+CAPABILITIES: Analyze data Jacob pastes from ESPN (primary workflow). Use web search for supplementary scores, news, and injury reports. Use Code Interpreter for scenario tables, calculations, and charts. Reference your knowledge file for pool data, analytics, and Jacob's writing style.
 
 Before outputting any email, self-check:
 ✅ Opens with "Hi everyone-"?
@@ -191,7 +193,7 @@ Before outputting any email, self-check:
 <!-- ESPN API -->
 <section class="section" id="espn-api">
 <h2>📡 ESPN API Reference</h2>
-<p>These free, no-authentication ESPN endpoints return JSON data. Your Custom GPT can access them via <strong>Web Search</strong> — just ask it to look up scores or data from these URLs. You can also paste these URLs directly in your browser to see raw JSON.</p>
+<p>These free ESPN endpoints return raw JSON data. They're a <strong>bonus shortcut</strong>, not required for any workflow. Open any URL in your browser → Ctrl+A → Ctrl+C → paste into your Custom GPT. The AI will parse the JSON. If any endpoint stops working, just copy data from ESPN.com instead — your primary workflow doesn't depend on these.</p>
 
 <h3>Live Scores</h3>
 <div class="ci"><span id="c-api1">https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard</span><button class="copy-btn" data-target="c-api1">Copy</button></div>
@@ -212,8 +214,10 @@ Before outputting any email, self-check:
 <h3>Game Summary (replace {eventId})</h3>
 <div class="ci"><span id="c-api6">https://site.web.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?event={eventId}</span><button class="copy-btn" data-target="c-api6">Copy</button></div>
 
-<h3>Example Prompt for Live Scores</h3>
-<div class="cb"><button class="copy-btn" data-target="c-api-code">Copy</button><pre id="c-api-code" style="margin:0;font:inherit;white-space:pre-wrap">Search the web for the latest NCAA basketball scores from ESPN. Also check https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard for today's full scoreboard data. Give me a summary of today's games, scores, and status.</pre></div>
+<h3>Example: Paste JSON from an API URL</h3>
+<div class="cb"><button class="copy-btn" data-target="c-api-code">Copy</button><pre id="c-api-code" style="margin:0;font:inherit;white-space:pre-wrap">I pasted the JSON from the ESPN scoreboard API below. Parse it and give me a summary of today's games, scores, and status.
+
+[paste the JSON here]</pre></div>
 
 <div class="info">
 <strong>Also useful for web search:</strong>
@@ -233,11 +237,12 @@ Before outputting any email, self-check:
 <h2>📊 How the Data Pipeline Works</h2>
 <div class="info">
 <h3>Three Data Channels:</h3>
-<p><strong>Channel 1 — Web Search (primary):</strong> Ask "search for today's NCAA scores on ESPN" and the AI browses ESPN, CBS Sports, and the ESPN API endpoints for live scores, rankings, standings, injuries, and bracketology. This is your main data source.</p>
-<p><strong>Channel 2 — Manual Paste (pool-specific):</strong> Copy-paste your ESPN Tournament Challenge group standings into the chat. The AI can't log into ESPN — this is the only way to get your specific pool's standings and bracket picks.</p>
-<p><strong>Channel 3 — Code Interpreter (computation):</strong> Once data is in the chat (via web search or paste), Code Interpreter crunches the numbers — scenario tables, probability calculations, charts, standings analysis.</p>
-<h3>Combined Power:</h3>
-<p>In one conversation: "Search ESPN for today's scores" + "Search for injury news" + [paste pool standings] → "Write the recap email combining all of this." The AI synthesizes all sources into one email in your voice.</p>
+<div class="warn">💡 <strong>Paste is primary. Web search is a bonus.</strong> This system is designed to work perfectly with just copy-paste — no API dependencies required.</div>
+<p><strong>Channel 1 — Paste from ESPN (PRIMARY — always works):</strong> Copy standings from ESPN Tournament Challenge, scores from ESPN.com, or JSON from ESPN API URLs in your browser. Paste into the chat. This is your ground truth — zero API dependency, zero failure modes.</p>
+<p><strong>Channel 2 — Web Search (SUPPLEMENTARY — best effort):</strong> Ask for scores, injury reports, or news and the AI searches the web. Works most of the time but isn't guaranteed for complex data tables. If it can't find what you need, paste instead.</p>
+<p><strong>Channel 3 — Code Interpreter (COMPUTATION — always works):</strong> Once data is in the chat (via paste or web search), Code Interpreter crunches the numbers — scenario tables, probability calculations, charts, standings analysis. Runs locally, no internet needed.</p>
+<h3>The Bulletproof Workflow:</h3>
+<p>1. ESPN.com → copy today's scores → paste. 2. ESPN Tournament Challenge → copy pool standings → paste. 3. "Write the recap email combining all of this." → AI generates email with source tags on every stat. 4. Review → Gmail BCC → send. <strong>Works even if every API endpoint in the world goes down.</strong></p>
 </div>
 </section>
 
@@ -255,7 +260,9 @@ Before outputting any email, self-check:
 <div class="cb"><button class="copy-btn" data-target="c-p3">Copy</button><pre id="c-p3" style="margin:0;font:inherit;white-space:pre-wrap">Here are the current pool standings [PASTE YOUR STANDINGS HERE]. Write a tournament recap email in my voice covering the latest round of games. Mention every participant by name, focus on how the game results affect pool standings, include how many brackets still have their champion alive, and build a scenario table showing who wins the pool under each remaining outcome. Sign it -Jacob.</pre></div>
 
 <h3>Live Score Check</h3>
-<div class="cb"><button class="copy-btn" data-target="c-p4">Copy</button><pre id="c-p4" style="margin:0;font:inherit;white-space:pre-wrap">Search the web for today's NCAA tournament scores on ESPN. Check https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard for the full scoreboard. Give me a quick update on today's games and what to watch for in our pool.</pre></div>
+<div class="cb"><button class="copy-btn" data-target="c-p4">Copy</button><pre id="c-p4" style="margin:0;font:inherit;white-space:pre-wrap">Search the web for today's NCAA tournament scores and results. What games finished today, what's still in progress, and what should I watch for in our pool?
+
+(If web search can't find clean data, I'll paste scores from ESPN.com)</pre></div>
 
 <h3>Scenario Analysis</h3>
 <div class="cb"><button class="copy-btn" data-target="c-p5">Copy</button><pre id="c-p5" style="margin:0;font:inherit;white-space:pre-wrap">Here are the remaining teams in the tournament: [LIST TEAMS]. Here are our current pool standings: [PASTE STANDINGS]. Run a complete scenario analysis showing who wins our pool under each possible outcome. Include probability estimates and highlight the key games that determine the pool winner.</pre></div>
