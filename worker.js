@@ -1,5 +1,5 @@
 /**
- * ESPN API Proxy for ChatGPT Custom GPT Actions — v2.1.0
+ * ESPN API Proxy for ChatGPT Custom GPT Actions — v2.2.0
  * Strips ESPN's massive JSON responses to essential data under 100K chars
  * Deploy as a Cloudflare Worker (free tier)
  */
@@ -50,6 +50,43 @@ export default {
         espnUrl = ESPN_WEB + '/apis/site/v2/sports/basketball/mens-college-basketball/summary' + search;
         processor = processGameSummary;
       } else if (path === '/standings' || path === '/standings/') {
+        // If no group param, return conference directory instead of hitting ESPN (all-conf response exceeds 100K)
+        var standingsParams = new URL(request.url).searchParams;
+        if (!standingsParams.get('group')) {
+          return new Response(JSON.stringify({
+            _proxy: {
+              source: 'ESPN via PoolCommissionerAI proxy',
+              version: '2.2.0',
+              endpoint: '/standings',
+              note: 'Specify a conference with ?group=ID. All-conference response exceeds ChatGPT size limits.'
+            },
+            message: 'Please specify a conference using ?group=ID. Example: /standings?group=23 for SEC standings.',
+            conferences: [
+              { name: 'ACC', id: 2 },
+              { name: 'A-10', id: 3 },
+              { name: 'Big East', id: 4 },
+              { name: 'Big Sky', id: 5 },
+              { name: 'Big South', id: 6 },
+              { name: 'Big Ten', id: 7 },
+              { name: 'Big 12', id: 8 },
+              { name: 'Big West', id: 9 },
+              { name: 'CAA', id: 10 },
+              { name: 'C-USA', id: 11 },
+              { name: 'Ivy', id: 12 },
+              { name: 'MAAC', id: 13 },
+              { name: 'MAC', id: 14 },
+              { name: 'MVC', id: 18 },
+              { name: 'Patriot', id: 22 },
+              { name: 'SEC', id: 23 },
+              { name: 'SWAC', id: 26 },
+              { name: 'Sun Belt', id: 27 },
+              { name: 'WCC', id: 29 },
+              { name: 'Mountain West', id: 44 },
+              { name: 'Horizon', id: 45 },
+              { name: 'AAC', id: 62 }
+            ]
+          }), { headers: headers });
+        }
         espnUrl = ESPN_WEB + '/apis/v2/sports/basketball/mens-college-basketball/standings' + search;
         processor = processStandings;
       } else if (path.startsWith('/roster/') && path.split('/').filter(Boolean).length === 2) {
@@ -59,7 +96,7 @@ export default {
       } else if (path === '/health') {
         return new Response(JSON.stringify({
           status: 'ok',
-          version: '2.1.0',
+          version: '2.2.0',
           endpoints: [
             'GET /scoreboard — Todays scores (optional: ?dates=YYYYMMDD)',
             'GET /rankings — AP Top 25 and Coaches Poll',
@@ -120,7 +157,7 @@ export default {
       var finalResponse = {
         _proxy: {
           source: 'ESPN via PoolCommissionerAI proxy',
-          version: '2.1.0',
+          version: '2.2.0',
           endpoint: path,
           fetchedAt: new Date().toISOString(),
           originalSize: Math.round(rawSize / 1024) + 'KB',
