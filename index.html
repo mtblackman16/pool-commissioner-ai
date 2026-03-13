@@ -24,6 +24,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;l
 .btn-dl:hover{background:#357abd}
 .info{background:#e7f3ff;border:1px solid #4a90d9;border-radius:8px;padding:1.2rem;margin:1rem 0}
 .warn{background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:1.2rem;margin:1rem 0}
+.success{background:#d4edda;border:1px solid #28a745;border-radius:8px;padding:1.2rem;margin:1rem 0}
 .checklist{list-style:none;padding:0}
 .checklist li{padding:.4rem 0;padding-left:1.8rem;position:relative}
 .checklist li::before{content:"✅";position:absolute;left:0}
@@ -39,6 +40,8 @@ ol li,ul li{margin:.3rem 0}
 .toc li{margin:.3rem 0}
 .toc a{color:#4a90d9;text-decoration:none;font-weight:500}
 .toc a:hover{text-decoration:underline}
+.new-badge{display:inline-block;background:#28a745;color:#fff;font-size:.7rem;font-weight:700;padding:2px 6px;border-radius:4px;margin-left:6px;vertical-align:middle;text-transform:uppercase}
+.updated-badge{display:inline-block;background:#fd7e14;color:#fff;font-size:.7rem;font-weight:700;padding:2px 6px;border-radius:4px;margin-left:6px;vertical-align:middle;text-transform:uppercase}
 @media(max-width:768px){.header h1{font-size:2rem}.section{padding:1.2rem}.cb{font-size:.78rem;padding-right:1rem}.copy-btn{position:static;display:block;margin-top:.5rem;width:100%}}
 @media print{.copy-btn,.btn-dl{display:none}.section{box-shadow:none;border:1px solid #ccc;break-inside:avoid}}
 </style>
@@ -47,16 +50,36 @@ ol li,ul li{margin:.3rem 0}
 <header class="header">
 <div class="container">
 <h1>🏀 Pool Commissioner AI</h1>
-<p>Your AI-powered NCAA bracket pool management assistant</p>
-<p><strong>Built for the Nitzberg Family Tournament Pool 2026</strong></p>
+<p>Your personal AI assistant for running the Nitzberg Family bracket pool — connected to live ESPN data, trained on your writing style, ready to go.</p>
+<p><strong>Built for Jake · Nitzberg Family Tournament Pool 2026</strong></p>
 </div>
 </header>
 <div style="background:#dc3545;color:#fff;text-align:center;padding:12px;font-weight:700;font-size:1.1rem">⏰ Selection Sunday is March 15 — Brackets due March 19 at 12:15 PM ET. Set this up NOW.</div>
 <main class="container content">
 
-<section class="section" style="border-left-color:#28a745">
-<h2>💡 Here's What This Does</h2>
-<p>You paste your pool standings into Pool Commissioner AI, and it generates emails like this — <strong>in your voice</strong>:</p>
+<!-- WHAT THIS IS -->
+<section class="section" id="what-this-does" style="border-left-color:#28a745">
+<h2>💡 What This Is</h2>
+<p>This is a <strong>personal AI assistant built specifically for you and the Nitzberg Family pool</strong>. It lives inside ChatGPT as a "Custom GPT" — think of it as a chatbot that already knows our pool, all 26 participants, your writing style, and has a live connection to ESPN's data.</p>
+
+<h3>What It Can Do</h3>
+<ul>
+<li>🏀 <strong>Pull live ESPN data on demand</strong> — scores, rankings, team records, rosters, box scores, conference standings. Just ask in plain English: "What are today's scores?" and it fetches them in real time.</li>
+<li>📧 <strong>Write pool emails in your voice</strong> — it studied your actual past pool emails and writes exactly like you do, including the "Hi everyone-" opener and "-Jacob" closer.</li>
+<li>📊 <strong>Run scenario analysis</strong> — paste the pool standings, and it calculates who wins under every possible tournament outcome.</li>
+<li>🏗️ <strong>Help build your bracket</strong> — analytics-driven picks using efficiency metrics, seed history, and matchup data.</li>
+<li>📋 <strong>Track all 26 participants by name</strong> — it knows every family member and never skips anyone in recaps.</li>
+</ul>
+
+<h3>How It Gets Data (Important)</h3>
+<div class="info">
+<p><strong>Automatic (just ask):</strong> Game scores, AP rankings, team records, rosters, box scores with player stats, conference standings. Your GPT connects to a live ESPN data feed — no copy-pasting needed for any of this.</p>
+<p style="margin-top:.6rem"><strong>You paste ONE thing:</strong> Pool standings from ESPN Tournament Challenge (who's winning our family pool). ESPN requires a login to see pool-specific data, so the AI can't fetch that automatically. You copy-paste it from the ESPN group page — takes 10 seconds.</p>
+<p style="margin-top:.6rem"><strong>Everything else is automatic.</strong> You talk to it like a person, it pulls data and writes content. That's it.</p>
+</div>
+
+<h3>What an Email Looks Like</h3>
+<p>Here's an example of what it generates — <strong>in your voice</strong>:</p>
 <div style="background:#f8f9fa;border:1px solid #dee2e6;border-radius:8px;padding:1.2rem;margin:.8rem 0;font-style:italic;line-height:1.7">
 "Hi everyone-<br><br>
 What a day. The Sweet 16 did NOT disappoint, and our pool standings got shaken up in a big way.<br><br>
@@ -66,30 +89,32 @@ Here's where it gets interesting. With just 3 games left, there are exactly 8 po
 The key game for our pool is Saturday's Florida-Houston matchup — 14 of our 26 brackets are riding on that result...<br><br>
 -Jacob"
 </div>
-<p>It also builds your bracket picks with analytics, runs scenario analysis, fetches live scores, and drafts every email for the entire tournament. <strong>Setup takes ~15 minutes on a laptop.</strong></p>
+<p><strong>Setup takes ~15 minutes on a laptop.</strong> After that, you use it from your phone, laptop, anywhere — just open ChatGPT and start talking to it.</p>
 </section>
 
 <div class="warn" style="margin:0 1rem 1.5rem">💻 <strong>Do this setup on a laptop/desktop.</strong> The Custom GPT builder works best on a full browser. You'll use it on mobile later.</div>
 
+<!-- TABLE OF CONTENTS -->
 <nav class="toc">
 <h2>What You're Setting Up</h2>
 <ol>
-<li><a href="#step1">Get ChatGPT Plus</a></li>
-<li><a href="#step2">Create a Custom GPT</a></li>
-<li><a href="#step3">Paste the System Prompt</a></li>
-<li><a href="#step4">Upload the Knowledge Base</a></li>
-<li><a href="#step5">Configure Capabilities</a></li>
-<li><a href="#step6">Add Conversation Starters</a></li>
-<li><a href="#step7">Save &amp; Test</a></li>
-<li><a href="#espn-api">Connect to Live ESPN Data (API Reference)</a></li>
-<li><a href="#data-flow">How the Data Pipeline Works</a></li>
-<li><a href="#prompts">Ready-to-Use Prompts</a></li>
+<li><a href="#what-this-does">What This Is &amp; What It Can Do</a></li>
+<li><a href="#step1">Step 1: Get ChatGPT Plus</a></li>
+<li><a href="#step2">Step 2: Create Your Custom GPT</a></li>
+<li><a href="#step3">Step 3: Paste the System Prompt</a> <span class="updated-badge">Updated</span></li>
+<li><a href="#step4">Step 4: Connect Live ESPN Data (Actions)</a> <span class="new-badge">New</span></li>
+<li><a href="#step5">Step 5: Upload the Knowledge Base</a></li>
+<li><a href="#step6">Step 6: Configure Capabilities</a></li>
+<li><a href="#step7">Step 7: Add Conversation Starters</a></li>
+<li><a href="#step8">Step 8: Save &amp; Test</a></li>
+<li><a href="#data-flow">How the Data Pipeline Works</a> <span class="updated-badge">Updated</span></li>
+<li><a href="#prompts">Ready-to-Use Prompts</a> <span class="updated-badge">Updated</span></li>
 <li><a href="#emails">Participant Email Directory</a></li>
-<li><a href="#zapier">Zapier Email Automation</a></li>
-<li><a href="#email-workflow">Complete Email Workflow</a></li>
+<li><a href="#email-setup">Email Distribution Setup</a></li>
+<li><a href="#email-workflow">Complete Email Workflow</a> <span class="updated-badge">Updated</span></li>
 <li><a href="#wispr">Phase 2: Wispr Flow</a></li>
-<li><a href="#future">What's Next — The Bigger Picture</a></li>
-<li><a href="#troubleshooting">Troubleshooting</a></li>
+<li><a href="#deploy-proxy">Advanced: Deploy Your Own Proxy</a> <span class="new-badge">New</span></li>
+<li><a href="#troubleshooting">Troubleshooting</a> <span class="updated-badge">Updated</span></li>
 </ol>
 </nav>
 
@@ -107,6 +132,7 @@ The key game for our pool is Saturday's Florida-Houston matchup — 14 of our 26
 <!-- STEP 2 -->
 <section class="section" id="step2">
 <h2>Step 2: Create Your Custom GPT</h2>
+<p>A Custom GPT is a personalized version of ChatGPT with its own instructions, knowledge, and data connections. You're creating one that knows our pool, writes like you, and talks to ESPN's live data. Once set up, it shows up in your ChatGPT sidebar like any other conversation.</p>
 <ol>
 <li>In the ChatGPT sidebar → <strong>Explore GPTs</strong> → <strong>Create</strong> (top right)</li>
 <li>⚠️ Click the <strong>"Configure"</strong> tab at the top (NOT the "Create" tab — Configure has the manual fields)</li>
@@ -120,52 +146,232 @@ The key game for our pool is Saturday's Florida-Houston matchup — 14 of our 26
 
 <!-- STEP 3 -->
 <section class="section" id="step3">
-<h2>Step 3: Paste the System Prompt</h2>
-<p>Copy this entire prompt and paste it into the <strong>Instructions</strong> field:</p>
+<h2>Step 3: Paste the System Prompt <span class="updated-badge">v2.1.0</span></h2>
+<p>Copy this entire prompt and paste it into the <strong>Instructions</strong> field. This is the brain of your GPT — it tells the AI exactly how to behave, what data sources to use, and how to write in your voice.</p>
 <div class="cb"><button class="copy-btn" data-target="c-prompt">Copy</button><pre id="c-prompt" style="margin:0;font:inherit;white-space:pre-wrap">You are Pool Commissioner AI — Jacob Nitzberg's NCAA bracket pool analyst and content assistant for the Nitzberg Family NCAA Tournament Pool on ESPN Tournament Challenge.
 
-VOICE (non-negotiable — follow EXACTLY):
+## VOICE (follow EXACTLY)
 - Open every email: "Hi everyone-" (hyphen, not colon)
 - Close every email: "-Jacob"
 - Mention EVERY participant by name in standings discussions (26 people — count before finishing)
 - Use exact numbers: "14 of 18 brackets" not "most brackets"
 - Warm, family-first, analytical tone. Never generic AI voice.
-- Weave game results into POOL impact — never just sports recap in isolation.
+- Past winners to reference: Linda, Justin, Mike, Hayes, Joel, Brooke, Jacob
 
-CRITICAL RULES:
-- NEVER fabricate scores, standings, or game results. If you don't have data, say: "I don't have current data for that. Paste the latest from ESPN and I'll analyze it."
-- NEVER present predictions as facts. Label clearly: "PREDICTION" vs "ACTUAL RESULT."
-- NEVER confuse participants — verify names against the 26-person list in your knowledge file before every output.
-- NEVER skip participants in standings recaps. Every person gets mentioned.
-- NEVER use prior-year tournament data as current-year data without labeling it as historical.
-- If web search fails or returns unclear data, say so immediately. Do not silently guess.
+## DATA INTEGRITY (non-negotiable)
+- You have live ESPN data via your Actions (8 endpoints). USE THEM — don't make up data.
+- For POOL-SPECIFIC standings (who's winning our family pool), Jacob must PASTE data from ESPN Tournament Challenge (requires login). Your Actions cannot access pool standings.
+- NEVER fabricate scores, standings, or game results. If an Action fails, say so.
+- NEVER present predictions as facts. Label: "PREDICTION" vs "ACTUAL RESULT."
 - All email drafts are DRAFTS — remind Jacob to review before sending.
 
-DATA INTEGRITY: Your PRIMARY data source is what Jacob PASTES into this chat — that is ground truth. Your SECONDARY source is web search (espn.com, sports news) — useful but not guaranteed. NEVER fabricate data. Tag every stat with its source: [PASTED], [WEB], or [KNOWLEDGE BASE]. Show your data sources BEFORE generating any email.
+## WHEN TO USE EACH ACTION
+- getScoreboard → "today's scores," "what games are on," "who won," "results" (add ?dates=YYYYMMDD for past/future dates)
+- getRankings → "AP poll," "top 25," "who's ranked," "rankings"
+- getTeamDetail → "tell me about Duke," "team record," "who's ranked #1"
+- getTeamRoster → "Duke's roster," "who plays for Houston," "player heights" (same team IDs as getTeamDetail)
+- getTeamsList → "find a team," "team ID lookup" (do NOT pass a limit parameter — default returns all 362 D1 teams)
+- getGameSummary → "box score," "game stats," "how did the game go," "player stats" (needs eventId from scoreboard first)
+- getStandings → "conference standings," "SEC standings" (use conference IDs below; call /health for the full list)
 
-CAPABILITIES: Analyze data Jacob pastes from ESPN (primary workflow). Use web search for supplementary scores, news, and injury reports. Use Code Interpreter for scenario tables, calculations, and charts. Reference your knowledge file for pool data, analytics, and Jacob's writing style.
+## TEAM IDS (common)
+Duke=150, UNC=153, Kentucky=96, Kansas=2305, Gonzaga=2250, UCLA=26, UConn=41, Houston=248, Purdue=2509, Arizona=12, Auburn=2, Alabama=333, Florida=57, Tennessee=2633, Iowa St=66, Michigan=130, Michigan St=127, Marquette=269, Baylor=239, Creighton=156, St. John's=2599, Virginia=258, Illinois=356, Nebraska=158, Arkansas=8, Vanderbilt=238, Wisconsin=275, Louisville=97
 
+## CONFERENCE IDS (for getStandings)
+ACC=2, Big East=4, Big Ten=7, Big 12=8, SEC=23, WCC=29, AAC=62, Mountain West=44, A-10=3, Ivy=12, Sun Belt=27, MAC=14, MAAC=13, Patriot=22, CAA=10, C-USA=11
+
+## PARTICIPANT RULES
+- 26 participants: Abby Baron, Alyssa Biondi, Blake McClimans, Brian Nitzberg, Brooke McClimans, Carla Blackman, Edward Cazalet, Elyse Perry, Hayes McClimans, Jacob Nitzberg (commissioner), Jason Craine, Jess Nitzberg, Joel Nitzberg, Justin Weinshank, Lauryn Weinshank, Levi Nitzberg, Linda Blackman, Mark Blackman, Matt Weinshank, Mike McClimans, Nick Perry, Pam Blackman, Sarah Lipton, Scott Lipton, Stan Nitzberg, Vivian Nitzberg
+- NEVER skip participants in standings recaps. Count to 26.
+- Family clusters: 6 Nitzbergs, 4 McClimans, 3 Weinshanks, 4 Blackmans, 2 Liptons, 2 Perrys, and friends (Abby, Edward, Jason)
+
+## SCORING
+10-20-40-80-160-320 per round. Max 1,920. Championship pick alone = 320 points (same as all of Round 1 combined). Late-round picks matter exponentially more.
+
+## CAPABILITIES
+- **Actions** → Live ESPN data (scores, rankings, standings, rosters, box scores). Always prefer Actions over web search for game data.
+- **Code Interpreter** → Scenario tables, charts, elimination math, and calculations on pasted pool standings.
+- **Web Search** → Supplementary news, injuries, bracketology, and anything not available via Actions.
+- **Player stats** → Use getGameSummary for individual player stats (top 5 per team: MIN, PTS, FG, 3PT, FT, REB, AST, TO, STL, BLK). Use getTeamRoster for player profiles (height, weight, class, position).
+
+## VERIFICATION CHECKPOINT
 Before outputting any email, self-check:
-✅ Opens with "Hi everyone-"?
-✅ Closes with "-Jacob"?
-✅ All 26 participants mentioned?
-✅ No fabricated or unverified data?
-✅ Specific numbers, not vague language?</pre></div>
+✅ Opens with "Hi everyone-"? Closes with "-Jacob"?
+✅ All 26 participants mentioned where relevant? (Count them)
+✅ No fabricated data? Every stat sourced from an Action or pasted data?
+✅ Predictions clearly labeled as predictions?
+✅ Draft disclaimer included?</pre></div>
 </section>
 
-<!-- STEP 4 -->
-<section class="section" id="step4">
-<h2>Step 4: Upload the Knowledge Base</h2>
-<p>Download this file, then upload it in the <strong>Knowledge</strong> section of your Custom GPT:</p>
-<a href="knowledge-base.md" class="btn-dl" download>📄 Download Knowledge Base (.md)</a>
-<div class="info">
-<strong>What's in this file:</strong> All 26 pool participants, your writing style guide (extracted from your actual emails), analytics frameworks (KenPom, NET rankings, seed performance data), ESPN API endpoints, workflow templates, tournament phase guide, email automation instructions, and edge case handling.
+<!-- STEP 4: ACTIONS -->
+<section class="section" id="step4" style="border-left-color:#28a745">
+<h2>Step 4: Connect Live ESPN Data (Actions) <span class="new-badge">New in v2.1.0</span></h2>
+
+<h3>What Are Actions?</h3>
+<p>Actions let your GPT fetch live data automatically. Instead of copy-pasting ESPN scores, your GPT calls our proxy API and gets clean, structured data in real time. Ask "What are today's scores?" and it just… gets them.</p>
+
+<h3>How to Add Actions</h3>
+<ol>
+<li>In your Custom GPT editor → scroll down to the <strong>Actions</strong> section (below Capabilities)</li>
+<li>Click <strong>Create new action</strong></li>
+<li>Set <strong>Authentication</strong> to <strong>None</strong></li>
+<li>In the <strong>Schema</strong> box, select all existing text and delete it</li>
+<li>Paste the OpenAPI schema below (use the Copy button)</li>
+<li>You should see <strong>8 operations</strong> appear in the list below the schema</li>
+<li>For the <strong>Privacy policy</strong> URL, enter: <code>https://mtblackman16.github.io/pool-commissioner-ai/</code></li>
+<li>Click the gear icon next to each operation and make sure "Always allow" is available (it will appear when you first use the GPT)</li>
+</ol>
+
+<h3>OpenAPI Schema</h3>
+<p>Copy this entire schema and paste it into the Schema box:</p>
+<div class="cb"><button class="copy-btn" data-target="c-schema">Copy</button><pre id="c-schema" style="margin:0;font:inherit;white-space:pre-wrap">openapi: "3.1.0"
+info:
+  title: "ESPN NCAA Men's Basketball Data"
+  description: "Live NCAA basketball scores, rankings, teams, standings, rosters, and game summaries via ESPN data proxy."
+  version: "2.1.0"
+servers:
+  - url: "https://espn-ncaa-proxy.mark-016.workers.dev"
+    description: "ESPN NCAA Basketball Data Proxy"
+paths:
+  /scoreboard:
+    get:
+      operationId: getScoreboard
+      summary: "Get today's college basketball scores and schedule"
+      description: "Returns NCAA men's basketball games with scores, teams, status, records, and TV info. Use for today's games, scores, who won, who's playing, game times. Add ?dates=YYYYMMDD for a specific date."
+      x-openai-isConsequential: false
+      parameters:
+        - name: dates
+          in: query
+          required: false
+          schema:
+            type: string
+          description: "Date in YYYYMMDD format (e.g., 20260319). Omit for today."
+      responses:
+        "200":
+          description: "JSON with gameCount and games array. Each game has eventId, name, status, home/away teams with scores, records, and ranks."
+  /rankings:
+    get:
+      operationId: getRankings
+      summary: "Get AP Top 25 and Coaches Poll"
+      description: "Returns current NCAA men's basketball rankings including AP Top 25 and Coaches Poll with team records, points, and first-place votes."
+      x-openai-isConsequential: false
+      responses:
+        "200":
+          description: "JSON with rankings array containing poll name and ranked teams with rank, record, points, and trend."
+  /teams:
+    get:
+      operationId: getTeamsList
+      summary: "Search or list college basketball teams"
+      description: "Returns a list of NCAA basketball teams with IDs, names, and abbreviations. Use to find a team's ID for other endpoints."
+      x-openai-isConsequential: false
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 400
+          description: "Number of teams to return. Default 400 (all D1 teams). Do not override — small limits return alphabetically and miss most ranked teams."
+      responses:
+        "200":
+          description: "JSON with count and teams array. Each team has id, name, abbreviation, and location."
+  /teams/{teamId}:
+    get:
+      operationId: getTeamDetail
+      summary: "Get detailed info for a specific team"
+      description: "Returns one team's record, rank, conference standing, and next game. Use for 'tell me about Duke' or 'what's their record'. Common IDs: Duke=150, UNC=153, Kentucky=96, Kansas=2305, Gonzaga=2250, Florida=57, Houston=248, Arizona=12, Auburn=2, Tennessee=2633."
+      x-openai-isConsequential: false
+      parameters:
+        - name: teamId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: "ESPN team ID. Duke=150, UNC=153, Kentucky=96, Kansas=2305, Gonzaga=2250, UCLA=26, UConn=41, Houston=248, Arizona=12, Florida=57, Auburn=2, Tennessee=2633, Alabama=333, Iowa St=66."
+      responses:
+        "200":
+          description: "JSON with team name, records, rank, conference standing, and next scheduled game."
+  /roster/{teamId}:
+    get:
+      operationId: getTeamRoster
+      summary: "Get a team's full roster with player profiles"
+      description: "Returns all players on a team roster: name, jersey, position, height, weight, experience, hometown, headshot, injury status. Same team IDs as getTeamDetail. For player game stats, use getGameSummary instead."
+      x-openai-isConsequential: false
+      parameters:
+        - name: teamId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: "ESPN team ID. Same IDs as getTeamDetail: Duke=150, UNC=153, Kentucky=96, Kansas=2305, Florida=57, Houston=248, Auburn=2, etc."
+      responses:
+        "200":
+          description: "JSON with team name, season, playerCount, and players array. Each player has id, name, jersey, position, height, weight, experience, birthPlace, headshot URL, and injury info."
+  /summary:
+    get:
+      operationId: getGameSummary
+      summary: "Get box score and game summary with player stats"
+      description: "Returns full game details including team stats, top 5 players per team with individual stats (MIN, PTS, FG, 3PT, FT, REB, AST, TO, STL, BLK), game leaders, venue, and attendance. Requires an event ID from the getScoreboard action. This is the ONLY source for individual player game statistics."
+      x-openai-isConsequential: false
+      parameters:
+        - name: event
+          in: query
+          required: true
+          schema:
+            type: string
+          description: "Event ID (game ID) from the scoreboard response. Found in games[].eventId."
+      responses:
+        "200":
+          description: "JSON with game status, competitors with scores, team stats, top 5 players per team with full stat lines, and game leaders."
+  /standings:
+    get:
+      operationId: getStandings
+      summary: "Get conference standings with full stats"
+      description: "Returns standings by conference: overall/conf/home/away records, GB, streak, win%, PPG, seed, vs-ranked. Conference IDs: ACC=2, Big East=4, Big Ten=7, Big 12=8, SEC=23, WCC=29, AAC=62, MWC=44. Call /health for full list."
+      x-openai-isConsequential: false
+      parameters:
+        - name: group
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: "Conference ID. ACC=2, Big East=4, Big Ten=7, Big 12=8, SEC=23, WCC=29, AAC=62, Mountain West=44, A-10=3, Ivy=12, Sun Belt=27, MAC=14. Call /health for full list. Omit for all conferences."
+        - name: season
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: "Season year (e.g., 2026). Omit for current season."
+      responses:
+        "200":
+          description: "JSON with conferences array. Each has name, id, and teams with overall, confRecord, homeRecord, awayRecord, gb, streak, winPct, ppg, oppPpg, seed, and vsRanked."</pre></div>
+
+<h3>Test Your Actions</h3>
+<p>After saving, open your GPT and try these:</p>
+<ol>
+<li><strong>"What are today's scores?"</strong> — GPT should call getScoreboard automatically</li>
+<li><strong>"Tell me about Duke"</strong> — should call getTeamDetail</li>
+<li>If you see <strong>"Allow espn-ncaa-proxy.mark-016.workers.dev to..."</strong> → click <strong>Allow</strong> (and <strong>"Always allow"</strong> if available)</li>
+</ol>
+
+<div class="success">
+<strong>🎉 Your GPT now has live access to:</strong> today's scores, AP/Coaches rankings, team records and details, full rosters, game box scores with player stats, and conference standings — all updated in real time from ESPN.
 </div>
 </section>
 
 <!-- STEP 5 -->
 <section class="section" id="step5">
-<h2>Step 5: Configure Capabilities</h2>
+<h2>Step 5: Upload the Knowledge Base</h2>
+<p>Download this file, then upload it in the <strong>Knowledge</strong> section of your Custom GPT:</p>
+<a href="knowledge-base.md" class="btn-dl" download>📄 Download Knowledge Base (.md)</a>
+<div class="info">
+<strong>What's in this file:</strong> All 26 pool participants, your writing style guide (extracted from your actual emails), analytics frameworks (KenPom, NET rankings, seed performance data), workflow templates, tournament phase guide, email automation instructions, and edge case handling.
+</div>
+</section>
+
+<!-- STEP 6 -->
+<section class="section" id="step6">
+<h2>Step 6: Configure Capabilities</h2>
 <p>In the <strong>Capabilities</strong> section, set these toggles:</p>
 <ul class="checklist">
 <li>Web Search — ON</li>
@@ -174,111 +380,101 @@ Before outputting any email, self-check:
 </ul>
 </section>
 
-<!-- STEP 6 -->
-<section class="section" id="step6">
-<h2>Step 6: Add Conversation Starters</h2>
+<!-- STEP 7 -->
+<section class="section" id="step7">
+<h2>Step 7: Add Conversation Starters</h2>
 <p>Add these 4 starters (they appear as buttons when you open the GPT):</p>
-<div class="ci"><span id="c-s1">What should I know before Selection Sunday?</span><button class="copy-btn" data-target="c-s1">Copy</button></div>
+<div class="ci"><span id="c-s1">What are today's tournament scores?</span><button class="copy-btn" data-target="c-s1">Copy</button></div>
 <div class="ci"><span id="c-s2">Help me build my bracket</span><button class="copy-btn" data-target="c-s2">Copy</button></div>
-<div class="ci"><span id="c-s3">Write a recap email (I'll paste standings)</span><button class="copy-btn" data-target="c-s3">Copy</button></div>
+<div class="ci"><span id="c-s3">Write a recap email (I'll paste pool standings)</span><button class="copy-btn" data-target="c-s3">Copy</button></div>
 <div class="ci"><span id="c-s4">Who can still win? Run scenario analysis</span><button class="copy-btn" data-target="c-s4">Copy</button></div>
 </section>
 
-<!-- STEP 7 -->
-<section class="section" id="step7">
-<h2>Step 7: Save &amp; Test</h2>
-<p>Click <strong>Save</strong> → <strong>Only me</strong>. You're live! Try the test prompts in the <a href="#prompts">Ready-to-Use Prompts</a> section below.</p>
-</section>
-
-<!-- ESPN API -->
-<section class="section" id="espn-api">
-<h2>📡 ESPN API Reference</h2>
-<p>These free ESPN endpoints return raw JSON data. They're a <strong>bonus shortcut</strong>, not required for any workflow. Open any URL in your browser → Ctrl+A → Ctrl+C → paste into your Custom GPT. The AI will parse the JSON. If any endpoint stops working, just copy data from ESPN.com instead — your primary workflow doesn't depend on these.</p>
-
-<h3>Live Scores</h3>
-<div class="ci"><span id="c-api1">https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard</span><button class="copy-btn" data-target="c-api1">Copy</button></div>
-
-<h3>Scores by Date (replace YYYYMMDD)</h3>
-<div class="ci"><span id="c-api2">https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?dates=YYYYMMDD</span><button class="copy-btn" data-target="c-api2">Copy</button></div>
-
-<h3>Rankings (AP / Coaches Poll)</h3>
-<div class="ci"><span id="c-api3">https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/rankings</span><button class="copy-btn" data-target="c-api3">Copy</button></div>
-
-<h3>All Teams</h3>
-<div class="ci"><span id="c-api4">https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams</span><button class="copy-btn" data-target="c-api4">Copy</button></div>
-
-<h3>Conference Standings ⚠️</h3>
-<div class="ci"><span id="c-api5">https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/standings</span><button class="copy-btn" data-target="c-api5">Copy</button></div>
-<p style="font-size:.85rem;color:#666;margin-top:-.3rem"><em>Note: This endpoint returns minimal data (just a link). Use the scoreboard endpoint for game results instead.</em></p>
-
-<h3>Game Summary (replace {eventId})</h3>
-<div class="ci"><span id="c-api6">https://site.web.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?event={eventId}</span><button class="copy-btn" data-target="c-api6">Copy</button></div>
-
-<h3>Example: Paste JSON from an API URL</h3>
-<div class="cb"><button class="copy-btn" data-target="c-api-code">Copy</button><pre id="c-api-code" style="margin:0;font:inherit;white-space:pre-wrap">I pasted the JSON from the ESPN scoreboard API below. Parse it and give me a summary of today's games, scores, and status.
-
-[paste the JSON here]</pre></div>
-
-<div class="info">
-<strong>Also useful for web search:</strong>
-<ul>
-<li>espn.com/mens-college-basketball/scoreboard — rendered scores</li>
-<li>espn.com/mens-college-basketball/rankings — AP/Coaches poll</li>
-<li>espn.com/mens-college-basketball/bracketology — Lunardi's projections</li>
-<li>ncaa.com/march-madness-live/bracket — Official NCAA bracket</li>
-<li>barttorvik.com — Free efficiency ratings (may need manual access)</li>
-<li>warrennolan.com/basketball — NET rankings, Quad records</li>
-</ul>
-</div>
+<!-- STEP 8 -->
+<section class="section" id="step8">
+<h2>Step 8: Save &amp; Test</h2>
+<p>Click <strong>Save</strong> → <strong>Only me</strong>. You're live!</p>
+<p>Try these tests to make sure everything works:</p>
+<ol>
+<li><strong>"What are today's scores?"</strong> — tests Actions (should auto-fetch from ESPN)</li>
+<li><strong>"Tell me about Duke"</strong> — tests team lookup via Actions</li>
+<li><strong>"Get me the AP Top 25"</strong> — tests rankings via Actions</li>
+<li>Paste some standings data and ask for a recap email — tests the paste workflow</li>
+</ol>
+<div class="info">If all 4 tests work, you're fully set up. The GPT will fetch live data automatically for scores/rankings/teams and use pasted data for pool standings.</div>
 </section>
 
 <!-- DATA FLOW -->
 <section class="section" id="data-flow">
-<h2>📊 How the Data Pipeline Works</h2>
-<div class="info">
-<h3>Three Data Channels:</h3>
-<div class="warn">💡 <strong>Paste is primary. Web search is a bonus.</strong> This system is designed to work perfectly with just copy-paste — no API dependencies required.</div>
-<p><strong>Channel 1 — Paste from ESPN (PRIMARY — always works):</strong> Copy standings from ESPN Tournament Challenge, scores from ESPN.com, or JSON from ESPN API URLs in your browser. Paste into the chat. This is your ground truth — zero API dependency, zero failure modes.</p>
-<p><strong>Channel 2 — Web Search (SUPPLEMENTARY — best effort):</strong> Ask for scores, injury reports, or news and the AI searches the web. Works most of the time but isn't guaranteed for complex data tables. If it can't find what you need, paste instead.</p>
-<p><strong>Channel 3 — Code Interpreter (COMPUTATION — always works):</strong> Once data is in the chat (via paste or web search), Code Interpreter crunches the numbers — scenario tables, probability calculations, charts, standings analysis. Runs locally, no internet needed.</p>
-<h3>The Bulletproof Workflow:</h3>
-<p>1. ESPN.com → copy today's scores → paste. 2. ESPN Tournament Challenge → copy pool standings → paste. 3. "Write the recap email combining all of this." → AI generates email with source tags on every stat. 4. Review → Gmail BCC → send. <strong>Works even if every API endpoint in the world goes down.</strong></p>
-</div>
+<h2>📊 How the Data Pipeline Works <span class="updated-badge">Updated</span></h2>
+<p>Your GPT has four ways to get information. Here's what's automatic and what needs your help:</p>
+
+<table>
+<thead><tr><th>Channel</th><th>What It Gets</th><th>How It Works</th></tr></thead>
+<tbody>
+<tr><td><strong>🟢 Live Actions</strong></td><td>Scores, rankings, team records, rosters, box scores, conference standings</td><td><strong>Automatic.</strong> Just ask in plain English — the GPT fetches it from ESPN in real time.</td></tr>
+<tr><td><strong>🟡 Paste</strong></td><td>Pool standings (who's winning our family pool)</td><td><strong>You paste this.</strong> Go to ESPN Tournament Challenge → copy standings → paste into chat. Takes 10 seconds.</td></tr>
+<tr><td><strong>🔵 Web Search</strong></td><td>News, injuries, bracketology, expert analysis</td><td><strong>Automatic.</strong> GPT searches the web when you ask about news or projections.</td></tr>
+<tr><td><strong>🟣 Code Interpreter</strong></td><td>Scenario tables, charts, elimination math</td><td><strong>Automatic.</strong> GPT does calculations locally once data is in the conversation.</td></tr>
+</tbody>
+</table>
+
+<h3>Why Do I Still Paste Pool Standings?</h3>
+<p>ESPN Tournament Challenge requires a login to see who's winning your specific pool. The AI can fetch public ESPN data (scores, rankings, rosters) automatically, but it can't log into your ESPN account. So for pool-specific analysis — "who's in first place," "who can still win," "write the recap email" — you paste the standings table. Everything else is hands-free.</p>
+
+<h3>The Typical Workflow</h3>
+<ol>
+<li><strong>Ask for scores:</strong> "What are today's tournament scores?" → GPT auto-fetches</li>
+<li><strong>Paste pool standings:</strong> Copy from ESPN Tournament Challenge → paste</li>
+<li><strong>Generate email:</strong> "Write the recap email combining the scores with these standings"</li>
+<li><strong>Review and send:</strong> Read the draft, tweak if needed → Gmail BCC to the family</li>
+</ol>
 </section>
 
 <!-- PROMPTS -->
 <section class="section" id="prompts">
-<h2>🚀 Ready-to-Use Prompts</h2>
+<h2>🚀 Ready-to-Use Prompts <span class="updated-badge">Updated</span></h2>
+<div class="info">
+<strong>🟢 = Fully automatic</strong> (GPT fetches all data via Actions — just paste the prompt and go)<br>
+<strong>🟡 = Paste required</strong> (you need to copy-paste pool standings from ESPN Tournament Challenge first)
+</div>
 
-<h3>Pre-Selection Sunday Briefing</h3>
-<div class="cb"><button class="copy-btn" data-target="c-p1">Copy</button><pre id="c-p1" style="margin:0;font:inherit;white-space:pre-wrap">Selection Sunday is March 15. Search the web for the latest NCAA tournament projections, conference tournament results, and any major injury news. Give me a pre-Selection Sunday briefing: top contenders, undervalued teams, upset risks, and what I should watch for when the bracket drops Sunday evening. Include efficiency context and historical seed performance rates.</pre></div>
+<h3>🟢 Pre-Selection Sunday Briefing</h3>
+<div class="cb"><button class="copy-btn" data-target="c-p1">Copy</button><pre id="c-p1" style="margin:0;font:inherit;white-space:pre-wrap">Selection Sunday is March 15. Get me the current AP Top 25 rankings and today's scores. Then search the web for the latest bracketology projections and major injury news. Give me a pre-Selection Sunday briefing: top contenders, undervalued teams, upset risks, and what I should watch for when the bracket drops Sunday evening.</pre></div>
 
-<h3>Build My Bracket</h3>
-<div class="cb"><button class="copy-btn" data-target="c-p2">Copy</button><pre id="c-p2" style="margin:0;font:inherit;white-space:pre-wrap">The 2026 NCAA Tournament bracket is set. Search the web for the complete bracket. Then build me a recommended bracket with: predicted winners for each Round 1 game with confidence levels, my Final Four picks with reasoning based on efficiency metrics and matchup analysis, and my champion pick. Remember this is a 26-person family pool — optimize for accuracy, not wild contrarian swings.</pre></div>
+<h3>🟢 Live Score Check</h3>
+<div class="cb"><button class="copy-btn" data-target="c-p2">Copy</button><pre id="c-p2" style="margin:0;font:inherit;white-space:pre-wrap">What are today's tournament scores? Show me all the games, who won, and any upsets.</pre></div>
 
-<h3>Tournament Recap Email</h3>
-<div class="cb"><button class="copy-btn" data-target="c-p3">Copy</button><pre id="c-p3" style="margin:0;font:inherit;white-space:pre-wrap">Here are the current pool standings [PASTE YOUR STANDINGS HERE]. Write a tournament recap email in my voice covering the latest round of games. Mention every participant by name, focus on how the game results affect pool standings, include how many brackets still have their champion alive, and build a scenario table showing who wins the pool under each remaining outcome. Sign it -Jacob.</pre></div>
+<h3>🟢 Team Deep Dive</h3>
+<div class="cb"><button class="copy-btn" data-target="c-p3">Copy</button><pre id="c-p3" style="margin:0;font:inherit;white-space:pre-wrap">Tell me about Duke. Pull their record, roster, and latest game box score. How are they looking heading into the tournament?</pre></div>
 
-<h3>Live Score Check</h3>
-<div class="cb"><button class="copy-btn" data-target="c-p4">Copy</button><pre id="c-p4" style="margin:0;font:inherit;white-space:pre-wrap">Search the web for today's NCAA tournament scores and results. What games finished today, what's still in progress, and what should I watch for in our pool?
+<h3>🟢 Conference Standings</h3>
+<div class="cb"><button class="copy-btn" data-target="c-p4">Copy</button><pre id="c-p4" style="margin:0;font:inherit;white-space:pre-wrap">Get me the SEC standings. Who's on the bubble? Any surprises?</pre></div>
 
-(If web search can't find clean data, I'll paste scores from ESPN.com)</pre></div>
+<h3>🟢 Build My Bracket</h3>
+<div class="cb"><button class="copy-btn" data-target="c-p5">Copy</button><pre id="c-p5" style="margin:0;font:inherit;white-space:pre-wrap">The 2026 NCAA Tournament bracket is set. Get the current rankings and search the web for the complete bracket. Then build me a recommended bracket with: predicted winners for each Round 1 game with confidence levels, my Final Four picks with reasoning, and my champion pick. Remember this is a 26-person family pool — optimize for accuracy, not wild contrarian swings.</pre></div>
 
-<h3>Scenario Analysis</h3>
-<div class="cb"><button class="copy-btn" data-target="c-p5">Copy</button><pre id="c-p5" style="margin:0;font:inherit;white-space:pre-wrap">Here are the remaining teams in the tournament: [LIST TEAMS]. Here are our current pool standings: [PASTE STANDINGS]. Run a complete scenario analysis showing who wins our pool under each possible outcome. Include probability estimates and highlight the key games that determine the pool winner.</pre></div>
+<h3>🟡 Tournament Recap Email (paste pool standings)</h3>
+<div class="cb"><button class="copy-btn" data-target="c-p6">Copy</button><pre id="c-p6" style="margin:0;font:inherit;white-space:pre-wrap">Here are the current pool standings [PASTE YOUR STANDINGS HERE]. Get today's scores via your Actions, then write a tournament recap email in my voice. Mention every participant by name, focus on how the game results affect pool standings, include how many brackets still have their champion alive, and build a scenario table showing who wins the pool under each remaining outcome. Sign it -Jacob.</pre></div>
 
-<h3>Bracket Submission Reminder</h3>
-<div class="cb"><button class="copy-btn" data-target="c-p6">Copy</button><pre id="c-p6" style="margin:0;font:inherit;white-space:pre-wrap">Brackets are due March 19 at 12:15 PM ET. Write a friendly reminder email to the pool in my voice encouraging everyone to get their brackets in. Mention that Selection Sunday is this weekend and the deadline is Thursday.</pre></div>
+<h3>🟢 Bracket Submission Reminder</h3>
+<div class="cb"><button class="copy-btn" data-target="c-p7">Copy</button><pre id="c-p7" style="margin:0;font:inherit;white-space:pre-wrap">Brackets are due March 19 at 12:15 PM ET. Write a friendly reminder email to the pool in my voice encouraging everyone to get their brackets in. Mention that Selection Sunday is this weekend and the deadline is Thursday.</pre></div>
 
-<h3>Final Wrap-Up Email</h3>
-<div class="cb"><button class="copy-btn" data-target="c-p7">Copy</button><pre id="c-p7" style="margin:0;font:inherit;white-space:pre-wrap">The tournament is over. Here are the final pool standings: [PASTE STANDINGS]. Write the championship wrap-up email. Include final standings for every participant, highlight the pool winner, give awards (best upset picker, worst bracket, best Final Four, most unique champion pick), and close with a note about next year. Make it warm and celebratory — this is the final email of the season.</pre></div>
+<h3>🟡 Scenario Analysis (paste pool standings)</h3>
+<div class="cb"><button class="copy-btn" data-target="c-p8">Copy</button><pre id="c-p8" style="margin:0;font:inherit;white-space:pre-wrap">Here are the remaining teams in the tournament: [LIST TEAMS]. Here are our current pool standings: [PASTE STANDINGS]. Run a complete scenario analysis showing who wins our pool under each possible outcome. Include probability estimates and highlight the key games that determine the pool winner.</pre></div>
+
+<h3>🟢 Game Box Score</h3>
+<div class="cb"><button class="copy-btn" data-target="c-p9">Copy</button><pre id="c-p9" style="margin:0;font:inherit;white-space:pre-wrap">Get today's scoreboard and then pull the box score for the Duke game. Show me the top performers and key stats.</pre></div>
+
+<h3>🟡 Final Wrap-Up Email (paste final standings)</h3>
+<div class="cb"><button class="copy-btn" data-target="c-p10">Copy</button><pre id="c-p10" style="margin:0;font:inherit;white-space:pre-wrap">The tournament is over. Here are the final pool standings: [PASTE STANDINGS]. Write the championship wrap-up email. Include final standings for every participant, highlight the pool winner, give awards (best upset picker, worst bracket, best Final Four, most unique champion pick), and close with a note about next year. Make it warm and celebratory — this is the final email of the season.</pre></div>
 </section>
 
 <!-- EMAILS -->
 <section class="section" id="emails">
 <h2>📧 Participant Email Directory</h2>
 
-<h3>All Emails — Comma-Separated (for BCC / Zapier)</h3>
+<h3>All Emails — Comma-Separated (for BCC)</h3>
 <div class="cb"><button class="copy-btn" data-target="c-emails">Copy</button><pre id="c-emails" style="margin:0;font:inherit;white-space:pre-wrap">jacob.nitzberg@gmail.com, alyssabiondi@gmail.com, brooke.mcclimans@gmail.com, emnitzberg@gmail.com, jason.craine12@gmail.com, cl2246@aol.com, levi.nitzberg@gmail.com, marktblackman@gmail.com, shank1977@aol.com, mike.mcclimans@gmail.com, nickperry0@yahoo.com, bnitzberg@related.com, pblackman@intero.com, scottdlipton@gmail.com, SNitzberg@midamericagrp.com, vivian.b.nitzberg@gmail.com, lindahblackman@gmail.com, blackman.carla@gmail.com, ed@cazalet.com, jessicanitzberg@yahoo.com, laurynw928@gmail.com, Sarahannelipton@gmail.com</pre></div>
 
 <h3>Complete Directory</h3>
@@ -315,10 +511,10 @@ Before outputting any email, self-check:
 </table>
 </section>
 
-<!-- ZAPIER -->
-<section class="section" id="zapier">
+<!-- EMAIL SETUP -->
+<section class="section" id="email-setup">
 <h2>⚡ Email Distribution Setup</h2>
-<p>Get your AI-generated recap emails to the whole family. Start with the simple option — add Zapier later if you want automation.</p>
+<p>Get your AI-generated recap emails to the whole family. Start with the simple option — add automation later if you want.</p>
 
 <h3>Simplest Option: Gmail Contact Group (2 minutes)</h3>
 <ol>
@@ -372,12 +568,13 @@ Before outputting any email, self-check:
 
 <!-- EMAIL WORKFLOW -->
 <section class="section" id="email-workflow">
-<h2>📬 Complete Email Workflow — End to End</h2>
+<h2>📬 Complete Email Workflow — End to End <span class="updated-badge">Updated</span></h2>
 
-<h3>The Full Pipeline: ESPN → AI → Email → Family</h3>
+<h3>The Full Pipeline: Actions + Paste → AI → Email → Family</h3>
 <ol>
-<li><strong>Gather data:</strong> Open ESPN Tournament Challenge → copy standings. Note any big upsets.</li>
-<li><strong>Generate content:</strong> Paste standings into Pool Commissioner AI → ask for recap email</li>
+<li><strong>Live data (automatic):</strong> Ask your GPT for scores, rankings, or team info — it fetches live via Actions</li>
+<li><strong>Pool standings (paste):</strong> Open ESPN Tournament Challenge → copy pool standings → paste into chat</li>
+<li><strong>Generate content:</strong> Ask for a recap email combining live game data with pool standings</li>
 <li><strong>Review:</strong> Check names, check data, add personal touches</li>
 <li><strong>Distribute:</strong> Copy email → send via Gmail BCC or Zapier trigger</li>
 </ol>
@@ -405,39 +602,57 @@ Before outputting any email, self-check:
 <p>Once you're rolling with ChatGPT, add AI voice dictation:</p>
 <ul>
 <li><a href="https://wisprflow.ai" target="_blank"><strong>wisprflow.com</strong></a> — works in ANY app (Mac / Windows / iPhone / Android)</li>
-<li>Dictate pool updates while walking Dylan around the house</li>
+<li>Dictate pool updates while walking around the house</li>
 <li>Speak naturally — Wispr converts to text in real time</li>
 <li>Works in the ChatGPT browser tab, Gmail, Notes, anywhere</li>
 <li>⚠️ Don't use simultaneously with ChatGPT's built-in voice mode — pick one or the other</li>
 </ul>
 </section>
 
-<!-- FUTURE -->
-<section class="section" id="future">
-<h2>🔮 What's Next — The Bigger Picture</h2>
-<p>After the tournament, think about what this opens up:</p>
-<ul>
-<li><strong>Publish your Custom GPT</strong> — share it with other bracket pool commissioners via the ChatGPT GPT Store</li>
-<li><strong>Start a sports analytics newsletter</strong> — your ESPN credentials + AI-assisted content = a unique voice nobody else has</li>
-<li><strong>Content calendar:</strong> One 30-min voice-dictated session per week during basketball season</li>
-<li><strong>The core insight:</strong> You combine data analysis, community management, and warm storytelling. You do it for 25 people. There's a world where it's 25,000.</li>
-<li><strong>ESPN + AI fluency</strong> = a consulting and content package that very few people in the world can offer</li>
-</ul>
-<p><em>"After the tournament, let's talk about what's next." — Mark</em></p>
+<!-- DEPLOY YOUR OWN PROXY -->
+<section class="section" id="deploy-proxy">
+<h2>🔧 Advanced: Deploy Your Own Proxy <span class="new-badge">New</span></h2>
+<p>The proxy at <code>espn-ncaa-proxy.mark-016.workers.dev</code> works for now. But if you want full independence — your own URL, your own control — here's how to deploy it yourself on Cloudflare Workers (free).</p>
+
+<h3>Step-by-Step</h3>
+<ol>
+<li>Create a free Cloudflare account at <a href="https://cloudflare.com" target="_blank">cloudflare.com</a></li>
+<li>Left sidebar → <strong>Build</strong> → <strong>Compute</strong> → <strong>Workers &amp; Pages</strong></li>
+<li>Click <strong>Create</strong> → <strong>"Start with Hello World!"</strong></li>
+<li>Name it (e.g., <code>espn-pool-proxy</code>)</li>
+<li>Click <strong>Deploy</strong> (creates a placeholder)</li>
+<li>Click <strong>"Edit Code"</strong> — select all the default code and delete it</li>
+<li>Paste the worker code from the GitHub repo (link below)</li>
+<li>Click <strong>Deploy</strong></li>
+<li>⚠️ The preview panel may spin or hang — this is normal, ignore it</li>
+<li>Your URL appears at the top (like <code>espn-pool-proxy.yourname.workers.dev</code>)</li>
+<li>Test: open <code>YOUR-URL/health</code> in your browser — you should see a JSON response</li>
+<li>Update your Custom GPT: go to Actions → edit the schema → change the <code>servers</code> URL to your new URL</li>
+</ol>
+
+<h3>Worker Source Code</h3>
+<p>The full worker code is on GitHub:</p>
+<p><a href="https://github.com/mtblackman16/pool-commissioner-ai" target="_blank" class="btn-dl">📦 GitHub: pool-commissioner-ai</a></p>
+
+<div class="info">
+<strong>Cost:</strong> $0. Cloudflare Workers free tier = 100,000 requests/day. You'll use maybe 50 requests during the entire tournament.
+</div>
 </section>
 
 <!-- TROUBLESHOOTING -->
 <section class="section" id="troubleshooting">
-<h2>🛠️ Troubleshooting</h2>
+<h2>🛠️ Troubleshooting <span class="updated-badge">Updated</span></h2>
 <table>
 <thead><tr><th>Problem</th><th>Fix</th></tr></thead>
 <tbody>
-<tr><td>AI voice sounds wrong / generic</td><td>Start a new conversation to reset</td></tr>
-<tr><td>Analysis seems off or outdated</td><td>Re-paste the latest standings from ESPN</td></tr>
-<tr><td>Web search can't find data</td><td>Use Code Interpreter with ESPN API endpoints instead</td></tr>
-<tr><td>ESPN API not working in Code Interpreter</td><td>Try the human-readable ESPN pages via web search</td></tr>
-<tr><td>Missing participants in emails</td><td>Remind the AI: "mention all 26 people"</td></tr>
-<tr><td>Can't access ESPN Tournament Challenge</td><td>Copy-paste standings manually — the AI can't log in</td></tr>
+<tr><td>Actions not working / GPT not calling API</td><td>Check that Actions are configured in your GPT settings (gear icon). Try asking explicitly: "Use your getScoreboard action to get today's scores." If that doesn't work, re-paste the schema.</td></tr>
+<tr><td>Getting "Allow" popup every time</td><td>Click <strong>"Always allow"</strong> when prompted. This persists for that action going forward.</td></tr>
+<tr><td>API returning errors</td><td>Test the URL directly in your browser: <a href="https://espn-ncaa-proxy.mark-016.workers.dev/health" target="_blank">espn-ncaa-proxy.mark-016.workers.dev/health</a> — if that works, the proxy is fine and the issue is on the GPT side. Try re-creating the action.</td></tr>
+<tr><td>Proxy URL changed</td><td>If you deployed your own proxy, update the <code>servers</code> URL in your Actions schema to match your new URL.</td></tr>
+<tr><td>AI voice sounds wrong / generic</td><td>Start a new conversation to reset context</td></tr>
+<tr><td>Pool standings not appearing</td><td>Actions can't access pool standings (requires ESPN login). You must paste these manually from ESPN Tournament Challenge.</td></tr>
+<tr><td>Missing participants in emails</td><td>Remind the AI: "mention all 26 people by name"</td></tr>
+<tr><td>Web search can't find data</td><td>Try Actions first — "get today's scores" or "get the rankings." Actions are more reliable than web search for ESPN data.</td></tr>
 <tr><td>Something else is broken</td><td>Screenshot it and text Mark</td></tr>
 </tbody>
 </table>
@@ -457,14 +672,13 @@ document.querySelectorAll('.copy-btn').forEach(function(btn) {
         var text = target.textContent.trim();
         var button = this;
         navigator.clipboard.writeText(text).then(function() {
-            button.textContent = '✓ Copied!';
+            button.textContent = '\u2713 Copied!';
             button.classList.add('copied');
             setTimeout(function() {
                 button.textContent = 'Copy';
                 button.classList.remove('copied');
             }, 2000);
         }).catch(function() {
-            // Fallback
             var ta = document.createElement('textarea');
             ta.value = text;
             ta.style.position = 'fixed';
@@ -473,7 +687,7 @@ document.querySelectorAll('.copy-btn').forEach(function(btn) {
             ta.select();
             document.execCommand('copy');
             document.body.removeChild(ta);
-            button.textContent = '✓ Copied!';
+            button.textContent = '\u2713 Copied!';
             button.classList.add('copied');
             setTimeout(function() {
                 button.textContent = 'Copy';

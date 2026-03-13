@@ -4,48 +4,8 @@
 ---
 
 ## SYSTEM PROMPT
-**Copy everything between the === lines into your Custom GPT's Instructions field:**
-
-===
-
-You are Pool Commissioner AI — Jacob Nitzberg's NCAA bracket pool analyst and content assistant for the Nitzberg Family NCAA Tournament Pool on ESPN Tournament Challenge.
-
-VOICE (non-negotiable — follow EXACTLY):
-- Open every email: "Hi everyone-" (hyphen, not colon)
-- Close every email: "-Jacob"
-- Mention EVERY participant by name in standings discussions (26 people — count before finishing)
-- Use exact numbers: "14 of 18 brackets" not "most brackets"
-- Warm, family-first, analytical tone. Never generic AI voice.
-- Weave game results into POOL impact — never just sports recap in isolation.
-
-DATA INTEGRITY (non-negotiable):
-- Your PRIMARY data source is what Jacob PASTES into this chat. Pasted data is ground truth.
-- Your SECONDARY source is web search (ESPN.com, sports news). Useful but not guaranteed.
-- NEVER fabricate scores, standings, or game results. If you don't have data, say: "I don't have that data. Paste the latest from ESPN and I'll analyze it."
-- NEVER present predictions as facts. Label clearly: "PREDICTION" vs "ACTUAL RESULT."
-- If web search fails or returns unclear data, say so. Do not silently guess or fill gaps.
-
-DATA CITATION (mandatory for every output):
-- Tag every score/stat with its source: [PASTED], [WEB], or [KNOWLEDGE BASE]
-- Show your data sources BEFORE generating any email: "Here's what I'm working with: [list sources]"
-- If you have zero pasted data and web search returned nothing, STOP. Do not generate content from memory.
-
-PARTICIPANT RULES:
-- NEVER confuse participants — verify names against the 26-person list in your knowledge file.
-- NEVER skip participants in standings recaps. Every person gets mentioned. Count to 26 before finishing.
-- NEVER use prior-year tournament data as current-year without labeling it as historical.
-
-CAPABILITIES: Your primary workflow is analyzing data Jacob pastes from ESPN. Use web search for supplementary scores, news, and injury reports from espn.com and sports sites. Use Code Interpreter for scenario tables, calculations, charts, and data analysis. Reference your knowledge file for pool data, analytics, and Jacob's writing style.
-
-VERIFICATION CHECKPOINT (run before EVERY email output):
-✅ Opens with "Hi everyone-"? Closes with "-Jacob"?
-✅ All 26 participants mentioned? (Count them)
-✅ Every score/stat has a source tag? No unverified data?
-✅ Data sources listed at top of response?
-✅ Draft disclaimer included?
-If ANY check fails, fix it before showing the output.
-
-===
+**The system prompt is configured in the Custom GPT Instructions field. See the setup guide for the latest version.**
+**Canonical location:** `espn-proxy/system-prompt.txt` (v2.1.0)
 
 ---
 
@@ -146,19 +106,22 @@ If ANY check fails, fix it before showing the output.
 
 ## HOW DATA WORKS (IMPORTANT)
 
-**What this AI CAN do automatically:**
-- Search the web for general NCAA tournament scores, news, rankings, and bracket info from espn.com, ncaa.com, and sports news sites
+**What this AI CAN do automatically (via Actions):**
+- Fetch live scores, game status, and TV channels for today's games
+- Pull AP Top 25 and Coaches Poll rankings
+- Get team records, conference standings, and rosters
+- Retrieve full box scores with individual player stats
+- Search the web for news, injuries, and bracketology
 - Analyze any data you paste into the chat
 - Generate emails, scenario tables, charts, and analysis using Code Interpreter
-- Cross-reference your knowledge base for pool data, participant lists, and style guidelines
 
 **What this AI CANNOT do (requires your help):**
 - ❌ Access ESPN Tournament Challenge group standings (requires ESPN login)
 - ❌ See individual participants' bracket picks (requires ESPN login)
 
-**The workflow:** When you need pool-specific analysis (standings, who's winning, scenario tables), go to your ESPN Tournament Challenge group page, copy the standings, and paste them into this chat. The AI handles all the analysis and email writing — you just provide the raw data.
+**The workflow:** For game data (scores, rankings, standings), just ask — Actions fetch it automatically. For pool-specific analysis (standings, who's winning, scenario tables), go to your ESPN Tournament Challenge group page, copy the standings, and paste them into this chat. The AI handles all the analysis and email writing.
 
-**Quick copy-paste guide for ESPN:**
+**Quick copy-paste guide for pool standings:**
 1. Go to your ESPN Tournament Challenge group page (logged in)
 2. Select the standings table (Ctrl+A or Cmd+A on the standings section)
 3. Copy (Ctrl+C / Cmd+C)
@@ -232,24 +195,25 @@ Free alternative to KenPom with similar efficiency ratings and tournament simula
 
 **When to be contrarian:** Only when you genuinely believe the field is wrong AND the analytical evidence supports your pick. "Nobody else will pick this team" is not a reason by itself.
 
-### ESPN API Endpoints (Bonus — Free, No Auth Required)
-These unofficial ESPN endpoints return raw JSON data. They're a convenience shortcut — NOT required for any workflow. You can visit them in your browser, copy the JSON, and paste it here for parsing:
+### Live ESPN Data (via Actions — Automatic)
+Your Custom GPT has 8 Actions that fetch live ESPN data automatically through a proxy API. You don't need to copy-paste for game data — just ask and the GPT fetches it.
 
-**Base URL:** `https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/`
+**Available Actions:**
+| Action | What It Gets | Example Prompt |
+|--------|-------------|----------------|
+| getScoreboard | Today's scores, game status, TV channels | "What are today's scores?" |
+| getRankings | AP Top 25 and Coaches Poll | "Show me the latest rankings" |
+| getTeamDetail | Team record, rank, conference standing | "Tell me about Duke" |
+| getTeamRoster | Full roster with player profiles | "Show me Houston's roster" |
+| getTeamsList | All 362 D1 teams with IDs | "Find the team ID for Gonzaga" |
+| getGameSummary | Box score, player stats, game leaders | "How did the Arizona game go?" |
+| getStandings | Conference standings with full stats | "Show me SEC standings" |
 
-| Endpoint | URL |
-|----------|-----|
-| Live Scores | `.../scoreboard` |
-| Scores by Date | `.../scoreboard?dates=YYYYMMDD` |
-| Rankings (AP/Coaches) | `.../rankings` |
-| All Teams | `.../teams` |
-| Specific Team | `.../teams/{teamId}` |
-| Conference Standings | `.../standings` |
-| Game Summary | `https://site.web.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?event={eventId}` |
+**Common Team IDs:** Duke=150, UNC=153, Kentucky=96, Kansas=2305, Gonzaga=2250, UCLA=26, UConn=41, Houston=248, Purdue=2509, Arizona=12, Auburn=2, Alabama=333, Florida=57, Tennessee=2633, Iowa St=66, Michigan=130, Michigan St=127, St. John's=2599, Virginia=258, Arkansas=8
 
-**How to use these:** Open any URL in your browser → Ctrl+A → Ctrl+C → paste into this chat. The AI will parse the JSON and extract the data you need. This is faster than copying from the ESPN website for scores and rankings.
+**Conference IDs:** ACC=2, Big East=4, Big Ten=7, Big 12=8, SEC=23, WCC=29, AAC=62, Mountain West=44, A-10=3
 
-**Note:** These are undocumented endpoints — they work today but could change without notice. Your primary workflow (paste from ESPN.com) does not depend on these and will always work regardless.
+**Important:** Actions fetch GAME data (scores, rankings, standings, rosters). They CANNOT fetch your pool standings — that requires ESPN login. For pool standings, paste from ESPN Tournament Challenge.
 
 ### Human-Readable ESPN Pages (for Web Search)
 - espn.com/mens-college-basketball/scoreboard — rendered scores page
@@ -266,45 +230,38 @@ These unofficial ESPN endpoints return raw JSON data. They're a convenience shor
 
 ## LIVE DATA PIPELINE
 
-Pool Commissioner AI uses a layered data architecture. Paste is primary. Everything else is supplementary.
+Pool Commissioner AI uses a layered data architecture. Actions are primary for game data. Paste is required for pool standings.
 
-### Channel 1: Paste from ESPN (PRIMARY — Most Reliable)
-Copy-paste data from ESPN Tournament Challenge and ESPN.com into this chat. This is your ground truth — always works, zero API dependency.
+### Channel 1: Live Actions (PRIMARY — Game Data)
+Your GPT automatically fetches scores, rankings, standings, rosters, and box scores from ESPN via the proxy API. No copy-pasting needed for game data — just ask.
 
-**What to paste and where to find it:**
+**Examples:**
+- "What are today's scores?" → GPT calls getScoreboard automatically
+- "Show me the SEC standings" → GPT calls getStandings with group=23
+- "How did the Duke game go?" → GPT calls getScoreboard to find the eventId, then getGameSummary
+
+### Channel 2: Paste from ESPN (REQUIRED — Pool Standings)
+For pool-specific data (who's winning the family pool, individual bracket picks), paste from ESPN Tournament Challenge. Actions can't access this because it requires ESPN login.
+
+**What to paste:**
 - **Pool standings:** ESPN Tournament Challenge → Your Group → standings table (Ctrl+A, Ctrl+C)
-- **Today's scores:** ESPN.com/mens-college-basketball/scoreboard → select and copy the scores section
 - **Bracket results:** ESPN Tournament Challenge → Bracket → copy completed matchups
 - **Individual picks:** ESPN Tournament Challenge → click any member's bracket → copy their picks
 
-**Pro tip:** You can also paste JSON data. Visit any ESPN API URL in your browser (see list below), select all (Ctrl+A), copy (Ctrl+C), paste here. The AI will parse it.
+### Channel 3: Web Search (SUPPLEMENTARY)
+News, injuries, bracketology projections, expert analysis. Best-effort — not guaranteed for complex data tables.
 
-### Channel 2: Web Search (SUPPLEMENTARY — Best Effort)
-Ask the AI to search the web for general scores, news, and analysis. This works most of the time but is NOT guaranteed — ESPN pages are complex and web search may not always extract clean data.
+### Channel 4: Code Interpreter (COMPUTATION)
+Scenario tables, probability calculations, charts, "what needs to happen" analysis. Works locally once data is in the chat.
 
-**Best for:** Injury reports, bracketology, expert analysis, general tournament news, confirming scores
-**Not reliable for:** Exact pool-specific standings, detailed statistical tables, ESPN API JSON parsing
-
-**If web search fails or returns incomplete data:** The AI will tell you. Paste the data manually as a fallback.
-
-### Channel 3: Code Interpreter (COMPUTATION — Always Works)
-Once data is in the chat (via paste or web search), Code Interpreter crunches numbers locally:
-- Scenario tables (enumerate all possible outcomes)
-- Probability calculations and projections
-- Charts and visualizations
-- Points remaining analysis
-- "What needs to happen for X to win?" computations
-
-### The Bulletproof Workflow
+### The Standard Workflow
 ```
-1. Go to ESPN.com → copy today's scores
-2. Go to ESPN Tournament Challenge → copy pool standings
-3. Paste both into Pool Commissioner AI
-4. Say: "Write the recap email combining all of this"
-5. AI generates email with [PASTED] source tags on every stat
-6. Review → send via Gmail BCC
+1. Ask GPT for today's scores (Actions fetch automatically)
+2. Go to ESPN Tournament Challenge → copy pool standings → paste
+3. Say: "Write the recap email combining the scores with these standings"
+4. AI generates email with every stat sourced
+5. Review → send via Gmail BCC
 ```
-This workflow has ZERO external API dependencies. It works even if ESPN changes every API endpoint tomorrow.
 
 ---
 
@@ -462,17 +419,23 @@ Three options, from simplest to most automated:
 
 ## TROUBLESHOOTING
 
+**"Actions not working / GPT not calling the API"**
+→ Make sure Actions are configured in your GPT settings (gear icon → Actions). Try asking explicitly: "Use your getScoreboard action to get today's scores."
+
+**"Getting 'Allow' popup every time I ask for scores"**
+→ Click "Always allow" when prompted. This persists for that action.
+
+**"API returning errors"**
+→ Test the proxy directly in your browser: `https://espn-ncaa-proxy.mark-016.workers.dev/health` — if that works, the proxy is fine and the issue is on the GPT side. Try: "Call the getScoreboard endpoint."
+
 **"Web search can't find the scores"**
-→ Normal. Go to ESPN.com, copy the scores, paste them here. This is the primary workflow.
+→ Use Actions instead: "What are today's scores?" — this is more reliable than web search for game data.
 
 **"I can't parse that data"**
 → Try pasting less data, or paste in a cleaner format. Copy just the standings table, not the entire page.
 
-**"The ESPN API URL isn't working"**
-→ ESPN API endpoints are undocumented and may change. Skip them — paste from ESPN.com instead.
-
 **"The scores look wrong"**
-→ The AI will tag every score with its source ([PASTED] or [WEB]). If a [WEB] score looks wrong, check ESPN.com manually and paste the correct data.
+→ Verify against ESPN.com. Actions data comes directly from ESPN's API — it should be accurate. If it's wrong, ESPN's data may be delayed.
 
 **"It's not mentioning all 26 participants"**
 → Say: "You missed some participants. Here's the full list: [paste standings]. Rewrite the email mentioning all 26."

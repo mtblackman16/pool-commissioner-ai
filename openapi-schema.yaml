@@ -1,0 +1,121 @@
+openapi: "3.1.0"
+info:
+  title: "ESPN NCAA Men's Basketball Data"
+  description: "Live NCAA basketball scores, rankings, teams, standings, rosters, and game summaries via ESPN data proxy."
+  version: "2.1.0"
+servers:
+  - url: "https://espn-ncaa-proxy.mark-016.workers.dev"
+    description: "ESPN NCAA Basketball Data Proxy"
+paths:
+  /scoreboard:
+    get:
+      operationId: getScoreboard
+      summary: "Get today's college basketball scores and schedule"
+      description: "Returns NCAA men's basketball games with scores, teams, status, records, and TV info. Use for today's games, scores, who won, who's playing, game times. Add ?dates=YYYYMMDD for a specific date."
+      x-openai-isConsequential: false
+      parameters:
+        - name: dates
+          in: query
+          required: false
+          schema:
+            type: string
+          description: "Date in YYYYMMDD format (e.g., 20260319). Omit for today."
+      responses:
+        "200":
+          description: "JSON with gameCount and games array. Each game has eventId, name, status, home/away teams with scores, records, and ranks."
+  /rankings:
+    get:
+      operationId: getRankings
+      summary: "Get AP Top 25 and Coaches Poll"
+      description: "Returns current NCAA men's basketball rankings including AP Top 25 and Coaches Poll with team records, points, and first-place votes."
+      x-openai-isConsequential: false
+      responses:
+        "200":
+          description: "JSON with rankings array containing poll name and ranked teams with rank, record, points, and trend."
+  /teams:
+    get:
+      operationId: getTeamsList
+      summary: "Search or list college basketball teams"
+      description: "Returns a list of NCAA basketball teams with IDs, names, and abbreviations. Use to find a team's ID for other endpoints."
+      x-openai-isConsequential: false
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 400
+          description: "Number of teams to return. Default 400 (all D1 teams). Do not override — small limits return alphabetically and miss most ranked teams."
+      responses:
+        "200":
+          description: "JSON with count and teams array. Each team has id, name, abbreviation, and location."
+  /teams/{teamId}:
+    get:
+      operationId: getTeamDetail
+      summary: "Get detailed info for a specific team"
+      description: "Returns one team's record, rank, conference standing, and next game. Use for 'tell me about Duke' or 'what's their record'. Common IDs: Duke=150, UNC=153, Kentucky=96, Kansas=2305, Gonzaga=2250, Florida=57, Houston=248, Arizona=12, Auburn=2, Tennessee=2633."
+      x-openai-isConsequential: false
+      parameters:
+        - name: teamId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: "ESPN team ID. Duke=150, UNC=153, Kentucky=96, Kansas=2305, Gonzaga=2250, UCLA=26, UConn=41, Houston=248, Arizona=12, Florida=57, Auburn=2, Tennessee=2633, Alabama=333, Iowa St=66."
+      responses:
+        "200":
+          description: "JSON with team name, records, rank, conference standing, and next scheduled game."
+  /roster/{teamId}:
+    get:
+      operationId: getTeamRoster
+      summary: "Get a team's full roster with player profiles"
+      description: "Returns all players on a team roster: name, jersey, position, height, weight, experience, hometown, headshot, injury status. Same team IDs as getTeamDetail. For player game stats, use getGameSummary instead."
+      x-openai-isConsequential: false
+      parameters:
+        - name: teamId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: "ESPN team ID. Same IDs as getTeamDetail: Duke=150, UNC=153, Kentucky=96, Kansas=2305, Florida=57, Houston=248, Auburn=2, etc."
+      responses:
+        "200":
+          description: "JSON with team name, season, playerCount, and players array. Each player has id, name, jersey, position, height, weight, experience, birthPlace, headshot URL, and injury info."
+  /summary:
+    get:
+      operationId: getGameSummary
+      summary: "Get box score and game summary with player stats"
+      description: "Returns full game details including team stats, top 5 players per team with individual stats (MIN, PTS, FG, 3PT, FT, REB, AST, TO, STL, BLK), game leaders, venue, and attendance. Requires an event ID from the getScoreboard action. This is the ONLY source for individual player game statistics."
+      x-openai-isConsequential: false
+      parameters:
+        - name: event
+          in: query
+          required: true
+          schema:
+            type: string
+          description: "Event ID (game ID) from the scoreboard response. Found in games[].eventId."
+      responses:
+        "200":
+          description: "JSON with game status, competitors with scores, team stats, top 5 players per team with full stat lines, and game leaders."
+  /standings:
+    get:
+      operationId: getStandings
+      summary: "Get conference standings with full stats"
+      description: "Returns standings by conference: overall/conf/home/away records, GB, streak, win%, PPG, seed, vs-ranked. Conference IDs: ACC=2, Big East=4, Big Ten=7, Big 12=8, SEC=23, WCC=29, AAC=62, MWC=44. Call /health for full list."
+      x-openai-isConsequential: false
+      parameters:
+        - name: group
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: "Conference ID. ACC=2, Big East=4, Big Ten=7, Big 12=8, SEC=23, WCC=29, AAC=62, Mountain West=44, A-10=3, Ivy=12, Sun Belt=27, MAC=14. Call /health for full list. Omit for all conferences."
+        - name: season
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: "Season year (e.g., 2026). Omit for current season."
+      responses:
+        "200":
+          description: "JSON with conferences array. Each has name, id, and teams with overall, confRecord, homeRecord, awayRecord, gb, streak, winPct, ppg, oppPpg, seed, and vsRanked."
