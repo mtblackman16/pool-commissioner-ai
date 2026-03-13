@@ -2,7 +2,7 @@ openapi: "3.1.0"
 info:
   title: "ESPN NCAA Men's Basketball Data"
   description: "Live NCAA basketball scores, rankings, teams, standings, rosters, and game summaries via ESPN data proxy."
-  version: "2.1.0"
+  version: "2.2.0"
 servers:
   - url: "https://espn-ncaa-proxy.mark-016.workers.dev"
     description: "ESPN NCAA Basketball Data Proxy"

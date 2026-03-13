@@ -152,7 +152,7 @@ The key game for our pool is Saturday's Florida-Houston matchup — 14 of our 26
 <h3 id="step2b">B. Description</h3>
 <div class="ci"><span id="c-desc">NCAA bracket pool management for the Nitzberg Family Tournament Pool</span><button class="copy-btn" data-target="c-desc">Copy</button></div>
 
-<h3 id="step2c">C. Instructions (System Prompt) <span class="updated-badge">v2.1.0</span></h3>
+<h3 id="step2c">C. Instructions (System Prompt) <span class="updated-badge">v2.2.0</span></h3>
 <p>Copy this entire prompt and paste it into the <strong>Instructions</strong> field. This is the brain of your GPT — it tells the AI exactly how to behave, what data sources to use, and how to write in your voice.</p>
 <div class="cb"><button class="copy-btn" data-target="c-prompt">Copy</button><pre id="c-prompt" style="margin:0;font:inherit;white-space:pre-wrap">You are Pool Commissioner AI — Jacob Nitzberg's NCAA bracket pool analyst and content assistant for the Nitzberg Family NCAA Tournament Pool on ESPN Tournament Challenge.
 
@@ -165,7 +165,7 @@ The key game for our pool is Saturday's Florida-Houston matchup — 14 of our 26
 - Past winners to reference: Linda, Justin, Mike, Hayes, Joel, Brooke, Jacob
 
 ## DATA INTEGRITY (non-negotiable)
-- You have live ESPN data via your Actions (8 endpoints). USE THEM — don't make up data.
+- You have live ESPN data via your Actions (7 endpoints). USE THEM — don't make up data.
 - For POOL-SPECIFIC standings (who's winning our family pool), Jacob must PASTE data from ESPN Tournament Challenge (requires login). Your Actions cannot access pool standings.
 - NEVER fabricate scores, standings, or game results. If an Action fails, say so.
 - NEVER present predictions as facts. Label: "PREDICTION" vs "ACTUAL RESULT."
@@ -238,7 +238,7 @@ Before outputting any email, self-check:
 <li class="off">Image Generation — OFF (not needed)</li>
 </ul>
 
-<h3 id="step2h">H. Actions — Live ESPN Data <span class="new-badge">New in v2.1.0</span></h3>
+<h3 id="step2h">H. Actions — Live ESPN Data <span class="new-badge">New in v2.2.0</span></h3>
 
 <h3>What Are Actions?</h3>
 <p>Actions let your GPT fetch live data automatically. Instead of copy-pasting ESPN scores, your GPT calls our proxy API and gets clean, structured data in real time. Ask "What are today's scores?" and it just… gets them.</p>
@@ -250,7 +250,7 @@ Before outputting any email, self-check:
 <li>Set <strong>Authentication</strong> to <strong>None</strong></li>
 <li>In the <strong>Schema</strong> box, select all existing text and delete it</li>
 <li>Paste the OpenAPI schema below (use the Copy button)</li>
-<li>You should see <strong>8 operations</strong> appear in the list below the schema</li>
+<li>You should see <strong>7 operations</strong> appear in the list below the schema</li>
 <li>For the <strong>Privacy policy</strong> URL, enter: <code>https://mtblackman16.github.io/pool-commissioner-ai/</code></li>
 </ol>
 
@@ -260,7 +260,7 @@ Before outputting any email, self-check:
 info:
   title: "ESPN NCAA Men's Basketball Data"
   description: "Live NCAA basketball scores, rankings, teams, standings, rosters, and game summaries via ESPN data proxy."
-  version: "2.1.0"
+  version: "2.2.0"
 servers:
   - url: "https://espn-ncaa-proxy.mark-016.workers.dev"
     description: "ESPN NCAA Basketball Data Proxy"
@@ -379,7 +379,7 @@ paths:
           description: "JSON with conferences array. Each has name, id, and teams with overall, confRecord, homeRecord, awayRecord, gb, streak, winPct, ppg, oppPpg, seed, and vsRanked."</pre></div>
 
 <h3>Test Your Actions</h3>
-<p>After pasting the schema, you should see 8 operations listed. If you see errors, make sure you copied the entire schema including the first <code>openapi: "3.1.0"</code> line.</p>
+<p>After pasting the schema, you should see 7 operations listed. If you see errors, make sure you copied the entire schema including the first <code>openapi: "3.1.0"</code> line.</p>
 <p>The first time you use the GPT, it will ask <strong>"Allow espn-ncaa-proxy.mark-016.workers.dev to..."</strong> — click <strong>Allow</strong> (and <strong>"Always allow"</strong> if available).</p>
 
 <div class="success">
@@ -601,7 +601,7 @@ paths:
 <h2>🎤 Phase 2: Wispr Flow ($15/mo)</h2>
 <p>Once you're rolling with ChatGPT, add AI voice dictation:</p>
 <ul>
-<li><a href="https://wisprflow.ai" target="_blank"><strong>wisprflow.com</strong></a> — works in ANY app (Mac / Windows / iPhone / Android)</li>
+<li><a href="https://wisprflow.ai" target="_blank"><strong>wisprflow.ai</strong></a> — works in ANY app (Mac / Windows / iPhone / Android)</li>
 <li>Dictate pool updates while walking around the house</li>
 <li>Speak naturally — Wispr converts to text in real time</li>
 <li>Works in the ChatGPT browser tab, Gmail, Notes, anywhere</li>

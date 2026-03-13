@@ -5,7 +5,7 @@
 
 ## SYSTEM PROMPT
 **The system prompt is configured in the Custom GPT Instructions field. See the setup guide for the latest version.**
-**Canonical location:** `espn-proxy/system-prompt.txt` (v2.1.0)
+**Canonical location:** `espn-proxy/system-prompt.txt` (v2.2.0)
 
 ---
 
@@ -196,7 +196,7 @@ Free alternative to KenPom with similar efficiency ratings and tournament simula
 **When to be contrarian:** Only when you genuinely believe the field is wrong AND the analytical evidence supports your pick. "Nobody else will pick this team" is not a reason by itself.
 
 ### Live ESPN Data (via Actions — Automatic)
-Your Custom GPT has 8 Actions that fetch live ESPN data automatically through a proxy API. You don't need to copy-paste for game data — just ask and the GPT fetches it.
+Your Custom GPT has 7 Actions that fetch live ESPN data automatically through a proxy API. You don't need to copy-paste for game data — just ask and the GPT fetches it.
 
 **Available Actions:**
 | Action | What It Gets | Example Prompt |
