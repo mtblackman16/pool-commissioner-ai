@@ -100,14 +100,16 @@ The key game for our pool is Saturday's Florida-Houston matchup — 14 of our 26
 <ol>
 <li><a href="#what-this-does">What This Is &amp; What It Can Do</a></li>
 <li><a href="#step1">Step 1: Get ChatGPT Plus</a></li>
-<li><a href="#step2">Step 2: Create Your Custom GPT (Name &amp; Description)</a></li>
-<li><a href="#step3">Step 3: Paste the Instructions (System Prompt)</a> <span class="updated-badge">Updated</span></li>
-<li><a href="#step4">Step 4: Add Conversation Starters</a></li>
-<li><a href="#step5">Step 5: Upload the Knowledge Base</a></li>
-<li><a href="#step6">Step 6: Set Recommended Model</a></li>
-<li><a href="#step7">Step 7: Configure Capabilities</a></li>
-<li><a href="#step8">Step 8: Connect Live ESPN Data (Actions)</a> <span class="new-badge">New</span></li>
-<li><a href="#step9">Step 9: Save &amp; Test</a></li>
+<li><a href="#step2">Step 2: Create Your Custom GPT</a></li>
+<li><a href="#step3">Step 3: Name</a></li>
+<li><a href="#step4">Step 4: Description</a></li>
+<li><a href="#step5">Step 5: Instructions (System Prompt)</a></li>
+<li><a href="#step6">Step 6: Conversation Starters</a></li>
+<li><a href="#step7">Step 7: Upload the Knowledge Base</a></li>
+<li><a href="#step8">Step 8: Recommended Model</a></li>
+<li><a href="#step9">Step 9: Capabilities</a></li>
+<li><a href="#step10">Step 10: Create New Action — Live ESPN Data</a> <span class="new-badge">New</span></li>
+<li><a href="#step11">Step 11: Save &amp; Test</a></li>
 <li><a href="#data-flow">How the Data Pipeline Works</a> <span class="updated-badge">Updated</span></li>
 <li><a href="#prompts">Ready-to-Use Prompts</a> <span class="updated-badge">Updated</span></li>
 <li><a href="#emails">Participant Email Directory</a></li>
@@ -130,25 +132,33 @@ The key game for our pool is Saturday's Florida-Houston matchup — 14 of our 26
 <div class="warn">⚠️ You need <strong>Plus</strong> specifically — not the Go tier. Only Plus unlocks Custom GPT creation.</div>
 </section>
 
-<!-- STEP 2: NAME & DESCRIPTION -->
+<!-- STEP 2: CREATE GPT -->
 <section class="section" id="step2">
-<h2>Step 2: Create Your Custom GPT (Name &amp; Description)</h2>
+<h2>Step 2: Create Your Custom GPT</h2>
 <p>A Custom GPT is a personalized version of ChatGPT with its own instructions, knowledge, and data connections. You're creating one that knows our pool, writes like you, and talks to ESPN's live data. Once set up, it shows up in your ChatGPT sidebar like any other conversation.</p>
 <ol>
 <li>In the ChatGPT sidebar → <strong>Explore GPTs</strong> → <strong>Create</strong> (top right)</li>
 <li>⚠️ Click the <strong>"Configure"</strong> tab at the top (NOT the "Create" tab — Configure has the manual fields)</li>
-<li>Fill in the first two fields:</li>
+<li>Now fill in each field top to bottom — the next steps walk you through each one</li>
 </ol>
-<h3>Name</h3>
+</section>
+
+<!-- STEP 3: NAME -->
+<section class="section" id="step3">
+<h2>Step 3: Name</h2>
 <div class="ci"><span id="c-name">Pool Commissioner AI</span><button class="copy-btn" data-target="c-name">Copy</button></div>
-<h3>Description</h3>
+</section>
+
+<!-- STEP 4: DESCRIPTION -->
+<section class="section" id="step4">
+<h2>Step 4: Description</h2>
 <div class="ci"><span id="c-desc">NCAA bracket pool management for the Nitzberg Family Tournament Pool</span><button class="copy-btn" data-target="c-desc">Copy</button></div>
 </section>
 
-<!-- STEP 3: INSTRUCTIONS -->
-<section class="section" id="step3">
-<h2>Step 3: Paste the Instructions (System Prompt) <span class="updated-badge">v2.1.0</span></h2>
-<p>Copy this entire prompt and paste it into the <strong>Instructions</strong> field (right below Description). This is the brain of your GPT — it tells the AI exactly how to behave, what data sources to use, and how to write in your voice.</p>
+<!-- STEP 5: INSTRUCTIONS -->
+<section class="section" id="step5">
+<h2>Step 5: Instructions (System Prompt) <span class="updated-badge">v2.1.0</span></h2>
+<p>Copy this entire prompt and paste it into the <strong>Instructions</strong> field. This is the brain of your GPT — it tells the AI exactly how to behave, what data sources to use, and how to write in your voice.</p>
 <div class="cb"><button class="copy-btn" data-target="c-prompt">Copy</button><pre id="c-prompt" style="margin:0;font:inherit;white-space:pre-wrap">You are Pool Commissioner AI — Jacob Nitzberg's NCAA bracket pool analyst and content assistant for the Nitzberg Family NCAA Tournament Pool on ESPN Tournament Challenge.
 
 ## VOICE (follow EXACTLY)
@@ -204,9 +214,9 @@ Before outputting any email, self-check:
 ✅ Draft disclaimer included?</pre></div>
 </section>
 
-<!-- STEP 4: CONVERSATION STARTERS -->
-<section class="section" id="step4">
-<h2>Step 4: Add Conversation Starters</h2>
+<!-- STEP 6: CONVERSATION STARTERS -->
+<section class="section" id="step6">
+<h2>Step 6: Conversation Starters</h2>
 <p>These appear as clickable buttons when you open the GPT. Add these 4:</p>
 <div class="ci"><span id="c-s1">What are today's tournament scores?</span><button class="copy-btn" data-target="c-s1">Copy</button></div>
 <div class="ci"><span id="c-s2">Help me build my bracket</span><button class="copy-btn" data-target="c-s2">Copy</button></div>
@@ -214,9 +224,9 @@ Before outputting any email, self-check:
 <div class="ci"><span id="c-s4">Who can still win? Run scenario analysis</span><button class="copy-btn" data-target="c-s4">Copy</button></div>
 </section>
 
-<!-- STEP 5: KNOWLEDGE -->
-<section class="section" id="step5">
-<h2>Step 5: Upload the Knowledge Base</h2>
+<!-- STEP 7: KNOWLEDGE -->
+<section class="section" id="step7">
+<h2>Step 7: Upload the Knowledge Base</h2>
 <p>Download this file, then click <strong>Upload files</strong> in the <strong>Knowledge</strong> section:</p>
 <a href="knowledge-base.md" class="btn-dl" download>📄 Download Knowledge Base (.md)</a>
 <div class="info">
@@ -224,17 +234,17 @@ Before outputting any email, self-check:
 </div>
 </section>
 
-<!-- STEP 6: RECOMMENDED MODEL -->
-<section class="section" id="step6">
-<h2>Step 6: Set Recommended Model</h2>
+<!-- STEP 8: RECOMMENDED MODEL -->
+<section class="section" id="step8">
+<h2>Step 8: Recommended Model</h2>
 <p>In the <strong>Recommended Model</strong> dropdown, select:</p>
 <div class="ci"><span id="c-model">GPT-5.3</span><button class="copy-btn" data-target="c-model">Copy</button></div>
 <p><em>GPT-5.3 is the sweet spot — smart enough to follow the voice rules and call Actions reliably, fast enough to not burn through your Plus rate limits. The Instant models are too lightweight for complex prompts. The 5.4/Thinking models are overkill for this.</em></p>
 </section>
 
-<!-- STEP 7: CAPABILITIES -->
-<section class="section" id="step7">
-<h2>Step 7: Configure Capabilities</h2>
+<!-- STEP 9: CAPABILITIES -->
+<section class="section" id="step9">
+<h2>Step 9: Capabilities</h2>
 <p>Toggle these on/off:</p>
 <ul class="checklist">
 <li>Web Search — ON (for news, injuries, bracketology)</li>
@@ -245,9 +255,9 @@ Before outputting any email, self-check:
 </ul>
 </section>
 
-<!-- STEP 8: ACTIONS -->
-<section class="section" id="step8" style="border-left-color:#28a745">
-<h2>Step 8: Connect Live ESPN Data (Actions) <span class="new-badge">New in v2.1.0</span></h2>
+<!-- STEP 10: ACTIONS -->
+<section class="section" id="step10" style="border-left-color:#28a745">
+<h2>Step 10: Create New Action — Live ESPN Data <span class="new-badge">New in v2.1.0</span></h2>
 
 <h3>What Are Actions?</h3>
 <p>Actions let your GPT fetch live data automatically. Instead of copy-pasting ESPN scores, your GPT calls our proxy API and gets clean, structured data in real time. Ask "What are today's scores?" and it just… gets them.</p>
@@ -396,9 +406,9 @@ paths:
 </div>
 </section>
 
-<!-- STEP 9: SAVE & TEST -->
-<section class="section" id="step9">
-<h2>Step 9: Save &amp; Test</h2>
+<!-- STEP 11: SAVE & TEST -->
+<section class="section" id="step11">
+<h2>Step 11: Save &amp; Test</h2>
 <p>Click <strong>Create</strong> (top right) → <strong>Only me</strong>. You're live!</p>
 <p>Try these tests to make sure everything works:</p>
 <ol>
