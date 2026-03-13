@@ -114,6 +114,7 @@ The key game for our pool is Saturday's Florida-Houston matchup — 14 of our 26
   </ol>
 </li>
 <li><a href="#step3-test">Step 3: Test It</a></li>
+<li><a href="#copy-standings">How to Use It: Copying Pool Data from ESPN</a> <span class="new-badge">New</span></li>
 <li><a href="#data-flow">How the Data Pipeline Works</a> <span class="updated-badge">Updated</span></li>
 <li><a href="#prompts">Ready-to-Use Prompts</a> <span class="updated-badge">Updated</span></li>
 <li><a href="#emails">Participant Email Directory</a></li>
@@ -402,6 +403,75 @@ paths:
 </ol>
 <p>The first time, it will ask <strong>"Allow espn-ncaa-proxy.mark-016.workers.dev to..."</strong> — click <strong>Allow</strong> (and <strong>"Always allow"</strong> if available).</p>
 <div class="info">If all 4 tests work, you're fully set up. The GPT will fetch live data automatically for scores/rankings/teams and use pasted data for pool standings.</div>
+</section>
+
+<!-- COPY STANDINGS FROM ESPN -->
+<section class="section" id="copy-standings" style="border-left-color:#28a745">
+<h2>How to Use It: Copying Pool Data from ESPN <span class="new-badge">New</span></h2>
+<p>Your GPT can pull scores and rankings automatically, but it <strong>cannot</strong> see our pool standings (ESPN requires a login). Here's exactly how to copy that data and paste it in.</p>
+
+<h3>1. Go to the ESPN Group Page</h3>
+<p>Open the Nitzberg Family pool standings:</p>
+<p><a href="https://fantasy.espn.com/games/tournament-challenge-bracket-2026/group?id=53867490-d4d5-3222-a769-161e0918589e" target="_blank" class="btn-dl">Open ESPN Tournament Challenge Group</a></p>
+<p>Log in with your ESPN account if prompted.</p>
+
+<h3>2. Select and Copy the Standings</h3>
+<ol>
+<li>You'll see the leaderboard/standings table with all 26 participants</li>
+<li>Click at the start of the first row (Rank 1) and drag to select all rows through Rank 26 — or use <strong>Ctrl+A</strong> (Windows) / <strong>Cmd+A</strong> (Mac) to select the whole page</li>
+<li>Copy: <strong>Ctrl+C</strong> (Windows) / <strong>Cmd+C</strong> (Mac)</li>
+</ol>
+<p>Don't worry about grabbing extra stuff — the AI will parse out the standings data and ignore the rest.</p>
+
+<h3>3. Paste into ChatGPT</h3>
+<p>Open your Pool Commissioner AI GPT, type your prompt, then paste. The pasted data will look something like this:</p>
+<div class="cb"><button class="copy-btn" data-target="c-paste-example">Copy</button><pre id="c-paste-example" style="margin:0;font:inherit;white-space:pre-wrap">1  Justin Weinshank     580  1120  Florida
+2  Linda Blackman       560  1080  Houston
+3  Hayes McClimans      520  1040  Duke
+4  Blake McClimans      520   960  Duke
+5  Jacob Nitzberg       490  1000  Auburn
+6  Joel Nitzberg        480   920  Florida
+7  Mark Blackman        470   960  Houston
+8  Brooke McClimans     460   880  UConn
+9  Brian Nitzberg       450   840  Kansas
+10 Scott Lipton         440   880  Tennessee
+11 Stan Nitzberg        430   800  Duke
+12 Vivian Nitzberg      420   760  Florida
+13 Matt Weinshank       410   840  Auburn
+14 Mike McClimans       400   800  Houston
+15 Pam Blackman         390   760  Tennessee
+16 Elyse Perry          380   720  Gonzaga
+17 Jason Craine         370   680  UConn
+18 Nick Perry           360   720  Kansas
+19 Carla Blackman       350   640  Florida
+20 Levi Nitzberg        340   680  Duke
+21 Sarah Lipton         330   640  Auburn
+22 Lauryn Weinshank     320   600  Houston
+23 Abby Baron           310   560  Tennessee
+24 Alyssa Biondi        300   520  Gonzaga
+25 Edward Cazalet       290   480  UConn
+26 Jess Nitzberg        280   440  Kansas</pre></div>
+<p>The exact format may vary — ESPN changes layouts. Columns are typically: rank, name, points, possible points, and champion pick. Whatever you copy, the AI will figure it out.</p>
+
+<h3>4. Pair It with a Prompt</h3>
+<p>Type a prompt before or after the paste. Example:</p>
+<div class="cb"><button class="copy-btn" data-target="c-paste-prompt">Copy</button><pre id="c-paste-prompt" style="margin:0;font:inherit;white-space:pre-wrap">Here are the current standings after Round 1. Write a recap email for the group.</pre></div>
+<p>Other prompts that work well with pasted standings:</p>
+<ul>
+<li>"Who can still win? Run the scenario analysis."</li>
+<li>"How many brackets still have their champion alive?"</li>
+<li>"Write the Sweet 16 recap email with these standings."</li>
+<li>"Which games tomorrow matter most for our pool?"</li>
+</ul>
+
+<h3>Tips</h3>
+<ul>
+<li><strong>Paste after any round</strong> — Round of 64, Sweet 16, Final Four, whatever. The AI adapts.</li>
+<li><strong>Include as much data as ESPN shows</strong> — more columns = better analysis. If ESPN shows bracket names, percentiles, or correct picks, grab those too.</li>
+<li><strong>The GPT knows all 26 participants</strong> — it will recognize everyone by name and won't skip anyone in recaps.</li>
+<li><strong>You don't need to clean up the paste</strong> — raw copy-paste from the browser is fine. The AI parses it.</li>
+<li><strong>Paste once per conversation</strong> — the AI remembers it for follow-up questions in the same chat.</li>
+</ul>
 </section>
 
 <!-- DATA FLOW -->
